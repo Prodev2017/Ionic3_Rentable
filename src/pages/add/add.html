@@ -1,0 +1,58 @@
+
+<ion-header>
+
+  <ion-navbar class="profileheader"  hideBackButton="true" >
+    <ion-row >
+      <ion-col col-9 >
+      </ion-col>
+      <ion-col col-3 class="nextbutton">
+      	<ion-label  (click)="gopostdetail()">
+      		Next
+      	</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding class="app-content">
+  <div class="postitemdiv">
+    <ion-row>
+      <ion-col col-3>
+      </ion-col>
+      <ion-col col-2 >
+        <div class="logoborder">
+          <img class="logoimagephoto"  src="assets/icon/photocamera_white.png">
+        </div>
+        <ion-label class="posttitle">
+          Photos
+        </ion-label>
+      </ion-col>
+      <ion-col [navPush]="signup" col-2>
+        <div class="logoblackborder">
+          <img class="logoimage" src="assets/icon/postdetail_black.png">
+        </div>
+        <ion-label class="posttitle graycolor">
+          Details
+        </ion-label>
+      </ion-col>
+      <ion-col [navPush]="finishsign" col-2>
+        <div class="logoblackborder">
+          <img class="logoimage dollar" src="assets/icon/dollar-symbol.png">
+        </div>
+        <ion-label class="posttitle graycolor">
+          Costs
+        </ion-label>
+      </ion-col>
+      <ion-col col-3>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-card class="grid-list backcolor" *ngFor="let item of categorygrid, let i = $index">
+    <div class="image-item" no-lines>
+      <img [navPush]="details" class="imageborder" style="background-color: white" src="{{item.img}}" />
+    </div>
+  </ion-card>
+	
+</ion-content>
