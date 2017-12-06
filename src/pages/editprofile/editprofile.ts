@@ -1,6 +1,5 @@
 import { Component,Renderer, ElementRef } from '@angular/core';
 import { NavController, NavParams,LoadingController, ToastController } from 'ionic-angular';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { KeyboardDirective } from '../../directives/keyboard/keyboard';
 import { File } from '@ionic-native/file';
@@ -42,7 +41,6 @@ export class EditprofilePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public profileprovider: ProfileProvider,
-    private transfer: FileTransfer,
     private camera: Camera,
     public loadingCtrl: LoadingController,
     public toastCtrl: ToastController

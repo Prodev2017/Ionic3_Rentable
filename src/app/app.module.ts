@@ -6,7 +6,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { MyApp } from './app.component';
 import { HttpModule} from '@angular/http';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
 import { Device } from '@ionic-native/device';
@@ -81,9 +80,6 @@ var APP_Pages = [];
     PaymentProvider,
     ProfileProvider,
     Postitemprovider,
-    FileTransfer,
-//    FileUploadOptions,
-    FileTransferObject,
     File,
     Camera,
     Device,
