@@ -11,6 +11,8 @@ import { File } from '@ionic-native/file';
 import { Camera } from '@ionic-native/camera';
 import { Device } from '@ionic-native/device';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { Crop } from '@ionic-native/crop';
+import { PhotoLibrary } from '@ionic-native/photo-library';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { allPages } from '../pages/common/declerations';
@@ -27,6 +29,7 @@ import { ProfileProvider } from '../providers/payment/profile';
 import { Postitemprovider } from '../providers/items/postitem';
 import { ItemsProvider } from '../providers/items/items';
 import { ChatProvider } from '../providers/chat/chat';
+import { ImageuploadProvider } from '../providers/imageupload/imageupload';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDfySkoXoUcI9Ed39TNJwXnntSg8nKyt10",
@@ -86,7 +89,10 @@ var APP_Pages = [];
     Device,
     ItemsProvider,
     ImagePicker,
-    ChatProvider
+    Crop,
+    PhotoLibrary,
+    ChatProvider,
+    ImageuploadProvider
   ]
 })
 export class AppModule {}

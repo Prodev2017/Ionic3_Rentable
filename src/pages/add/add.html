@@ -3,7 +3,8 @@
 
   <ion-navbar class="profileheader"  hideBackButton="true" >
     <ion-row >
-      <ion-col col-9 >
+      <ion-col col-9 style="color: white;">
+        {{photourlname}}
       </ion-col>
       <ion-col col-3 class="nextbutton">
       	<ion-label  (click)="gopostdetail()">
@@ -17,6 +18,7 @@
 
 
 <ion-content no-padding class="app-content">
+  <ion-label style="color: black;">{{thumname}}</ion-label>
   <div class="postitemdiv">
     <ion-row>
       <ion-col col-3>
@@ -49,10 +51,11 @@
       </ion-col>
     </ion-row>
   </div>
-  <ion-card class="grid-list backcolor" *ngFor="let item of categorygrid, let i = $index">
+  <ion-card class="grid-list backcolor" *ngFor="let item of imagelist">
     <div class="image-item" no-lines>
-      <img [navPush]="details" class="imageborder" style="background-color: white" src="{{item.img}}" />
+      <img [navPush]="details" class="imageborder" style="background-color: white" src="{{item}}" />
     </div>
   </ion-card>
+  <ion-label style="color: black;">{{filename}}</ion-label>
 	
 </ion-content>

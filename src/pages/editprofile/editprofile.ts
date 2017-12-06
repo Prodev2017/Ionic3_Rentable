@@ -5,6 +5,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { KeyboardDirective } from '../../directives/keyboard/keyboard';
 import { File } from '@ionic-native/file';
 import { ProfileProvider } from '../../providers/payment/profile';
+import { storage } from 'firebase';
 
 import { Profile } from '../profile/profile';
 import { ProfileinputPage } from '../profileinput/profileinput';
@@ -54,12 +55,12 @@ export class EditprofilePage {
 
     this.uuid=localStorage.getItem('uid');
     this.Profiledata=this.profileprovider.Getprofile(this.uuid).subscribe(data =>{
-      this.firstname=data.json().result;
-      this.lastname=data.json().result;
-      this.email=data.json().result;
-      this.phonenumber=data.json().result;
-      this.postalcode=data.json().result;
-      this.password=data.json().result;
+      this.firstname=data.json().result.firstName;
+      this.lastname=data.json().result.lastName;
+      this.email=data.json().result.email;
+      this.phonenumber=data.json().result.phoneNumber;
+      this.postalcode=data.json().result.phoneNubmer;
+      this.password=data.json().result.fireId;
       console.log("heeeeee", data.json().result);
     },
     err =>{
@@ -159,6 +160,9 @@ export class EditprofilePage {
     this.camera.getPicture(options).then((imageData) => {
       this.imageURI = imageData;
       console.log(this.imageURI);
+      const pictures = storage().ref('pictures');
+      pictures.putString(this.imageURI, 'data_url');
+
     }, (err) => {
       console.log(err);
       this.presentToast(err);
