@@ -1,6 +1,7 @@
 import { Component,Renderer, ElementRef } from '@angular/core';
 import { NavController, NavParams,LoadingController, ToastController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Device } from '@ionic-native/device';
 import { KeyboardDirective } from '../../directives/keyboard/keyboard';
 import { File } from '@ionic-native/file';
 import { ProfileProvider } from '../../providers/payment/profile';
@@ -44,7 +45,8 @@ export class EditprofilePage {
     public profileprovider: ProfileProvider,
     private camera: Camera,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public device: Device
   ) {
 	  this.editprofile ={
     img: 'assets/img/profile-img.png', name: 'John Doe', address:'Sydney Australia', rate:'4.5', rent_nuber: '10', owner_number: '20'
@@ -60,32 +62,10 @@ export class EditprofilePage {
       this.phonenumber=data.json().result.phoneNumber;
       this.postalcode=data.json().result.phoneNubmer;
       this.password=data.json().result.fireId;
-      console.log("heeeeee", data.json().result);
     },
     err =>{
       console.log(err);
     });
-
-    // this.type=navParams.get("type");
-    // if(this.type=="FIRST NAME"){
-    //   this.firstname=navParams.get("data");
-    // }
-    // if(this.type=="LAST NAME"){
-    //   this.lastname=navParams.get("data");
-    // }
-    // if(this.type=="MOBILE NUMBER"){
-    //   this.phonenumber=navParams.get("data");
-    // }
-    // if(this.type=="EMAIL"){
-    //   this.email=navParams.get("data");
-    // }
-    // if(this.type=="PASSWORD"){
-    //   this.password=navParams.get("data");
-    //   this.showpassword="......";
-    // }
-    // if(this.type=="POSTAL CODE"){
-    //   this.postalcode=navParams.get("data");
-    // }
 
   }
 
@@ -147,11 +127,11 @@ export class EditprofilePage {
 
 
   getImage() {
-    console.log("browser");
+    let imageSource = (this.device.isVirtual ? this.camera.PictureSourceType.PHOTOLIBRARY : this.camera.PictureSourceType.CAMERA);
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.FILE_URI,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      sourceType: imageSource,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
     }
@@ -159,12 +139,11 @@ export class EditprofilePage {
     this.camera.getPicture(options).then((imageData) => {
       this.imageURI = imageData;
       this.captureurl = 'data:image/jpeg;base64,' + imageData;
-      console.log(this.imageURI);
       const pictures = storage().ref();
       const filename =Math.floor(Date.now()/1000);
       const imageref = pictures.child('images/${filename}.jpg');
-      imageref.putString(this.captureurl, storage.StringFormat.DATA_URL).then((snapshot)=>{
-
+      var uploadtask = imageref.putString(this.captureurl, storage.StringFormat.DATA_URL).then((snapshot)=>{
+        console.log("success image upload", snapshot);
       });
 
     }, (err) => {
