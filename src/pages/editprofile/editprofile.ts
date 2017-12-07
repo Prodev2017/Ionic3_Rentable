@@ -35,6 +35,7 @@ export class EditprofilePage {
   Profiledata:any;
   imageURI:any;
   imageFileName:any;
+  captureurl:any;
   uuid:any;
 
   constructor(
@@ -157,9 +158,14 @@ export class EditprofilePage {
 
     this.camera.getPicture(options).then((imageData) => {
       this.imageURI = imageData;
+      this.captureurl = 'data:image/jpeg;base64,' + imageData;
       console.log(this.imageURI);
-      const pictures = storage().ref('pictures');
-      pictures.putString(this.imageURI, 'data_url');
+      const pictures = storage().ref();
+      const filename =Math.floor(Date.now()/1000);
+      const imageref = pictures.child('images/${filename}.jpg');
+      imageref.putString(this.captureurl, storage.StringFormat.DATA_URL).then((snapshot)=>{
+
+      });
 
     }, (err) => {
       console.log(err);
