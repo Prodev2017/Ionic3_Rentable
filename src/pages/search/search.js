@@ -9,10 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
-/*import { NgCalendarModule  } from 'ionic2-calendar';
-import { CalendarComponent } from 'ionic2-calendar/calendar';
-import { Calendar } from '@ionic-native/calendar';*/
-import { FormGroup, FormControl } from '@angular/forms';
+import { ItemsProvider } from '../../providers/items/items';
 import { Home } from '../home/home';
 import { MapModal } from '../modal-page/modal-page';
 import { SearchresultPage } from '../searchresult/searchresult';
@@ -23,15 +20,14 @@ import { SearchresultPage } from '../searchresult/searchresult';
   Ionic pages and navigation.
 */
 var SearchPage = /** @class */ (function () {
-    function SearchPage(navCtrl, modalCtrl, navParams) {
+    function SearchPage(navCtrl, modalCtrl, navParams, itemprovider) {
         this.navCtrl = navCtrl;
         this.modalCtrl = modalCtrl;
         this.navParams = navParams;
+        this.itemprovider = itemprovider;
         this.map = MapModal;
         this.searchresult = SearchresultPage;
         this.home = Home;
-        this.showfromprice = false;
-        this.showtoprice = false;
         this.categorylist = [
             { active_img: 'assets/icon/cat-nearyou-red.png', title: 'Nearby', inactive_img: 'assets/icon/cat-nearyou-grey.png', value: 'nearby', radionumber: 'radio1' },
             { active_img: 'assets/icon/cat-electronics-red.png', title: 'Electronics', inactive_img: 'assets/icon/cat-electronics-grey.png', value: 'electronics', radionumber: 'radio2' },
@@ -44,20 +40,6 @@ var SearchPage = /** @class */ (function () {
             { active_img: 'assets/icon/cat-tools-red.png', title: 'Tools and machines', inactive_img: 'assets/icon/cat-tools-grey.png', value: 'tools', radionumber: 'radio9' },
             { active_img: 'assets/icon/cat-party-red.png', title: 'Party and Events', inactive_img: 'assets/icon/cat-party-grey.png', value: 'party', radionumber: 'radio10' }
         ];
-        this.newcategorylist =
-            [
-                { title: 'category A', icon: 'md-color-filter', image: 'url(../assets/icon/ico-home_1.png)',
-                    number: '20', id: 'A', value: 'apple' },
-                { title: 'category b', icon: 'md-color-palette', number: '30', id: 'B', value: 'near' },
-                { title: 'category c', icon: 'md-compass', number: '40', id: 'C', value: 'TV' },
-                { title: 'category D', icon: 'md-contrast', number: '40', id: 'D', value: 'car' }
-            ];
-        this.langForm = new FormGroup({
-            "langs": new FormControl({ value: 'newset', disabled: false })
-        });
-        this.postwithin = new FormGroup({
-            "within": new FormControl({ value: 'all', disabled: false })
-        });
     }
     SearchPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad SearchPagePage');
@@ -66,13 +48,16 @@ var SearchPage = /** @class */ (function () {
         var modal = this.modalCtrl.create(MapModal);
         modal.present();
     };
-    SearchPage.prototype.fromprice = function () {
-    };
-    SearchPage.prototype.toprice = function () {
-    };
-    SearchPage.prototype.doSubmit = function () {
-    };
-    SearchPage.prototype.wifiApSelected = function () {
+    SearchPage.prototype.reset = function () {
+        this.category = "";
+        this.distance = 0;
+        this.fromprice = 0;
+        this.toprice = 0;
+        this.location = "";
+        this.date = "";
+        this.within = "all";
+        this.langs = "hightolow";
+        console.log("reset");
     };
     SearchPage.prototype.myFunction = function (event) {
         var target = event.target || event.srcElement || event.currentTarget;
@@ -88,6 +73,7 @@ var SearchPage = /** @class */ (function () {
         for (var i = 0; i < count; ++i) {
             if (preparent == children[i]) {
                 var image = this.categorylist[i].active_img;
+                this.category = this.categorylist[i].value;
                 console.log(children[i].getElementsByTagName('label')[0].getElementsByTagName('img')[0] + "children[i]");
                 children[i].getElementsByTagName('label')[0].getElementsByTagName('img')[0].setAttribute("src", image);
             }
@@ -97,18 +83,15 @@ var SearchPage = /** @class */ (function () {
             }
         }
     };
-    SearchPage.prototype.showfrom = function () {
-        this.showfromprice = true;
-    };
-    SearchPage.prototype.showto = function () {
-        this.showtoprice = true;
+    SearchPage.prototype.searchsave = function () {
+        this.itemprovider.Searchsave(this.category, this.location, this.date, this.fromprice, this.toprice, this.distance, this.within, this.langs);
     };
     SearchPage = __decorate([
         Component({
             selector: 'page-search',
             templateUrl: 'search.html'
         }),
-        __metadata("design:paramtypes", [NavController, ModalController, NavParams])
+        __metadata("design:paramtypes", [NavController, ModalController, NavParams, ItemsProvider])
     ], SearchPage);
     return SearchPage;
 }());

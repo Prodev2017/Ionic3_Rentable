@@ -21,10 +21,22 @@ var AcceptPage = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.details = Details;
-        this.agree = "yes";
+        this.active_flag = true;
+        this.agree = "no";
     }
     AcceptPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad AcceptPagePage');
+    };
+    AcceptPage.prototype.godetail = function () {
+        this.navCtrl.pop();
+    };
+    AcceptPage.prototype.radioChecked = function () {
+        if (this.agree == "no") {
+            this.active_flag = true;
+        }
+        else {
+            this.active_flag = false;
+        }
     };
     AcceptPage = __decorate([
         Component({

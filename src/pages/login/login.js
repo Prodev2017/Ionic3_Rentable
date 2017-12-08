@@ -8,21 +8,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, NavParams } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Register } from '../register/register';
-import { MenuPage } from '../menu/menu';
 import { TabPage } from '../tab/tab';
 var Login = /** @class */ (function () {
-    function Login(navCtrl, alertCtrl) {
+    function Login(navCtrl, alertCtrl, navParams, afAuth) {
         this.navCtrl = navCtrl;
         this.alertCtrl = alertCtrl;
+        this.navParams = navParams;
+        this.afAuth = afAuth;
         this.register = Register;
-        this.home = MenuPage;
         this.expanded = true;
         this.name = "Matias";
+        this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
+        this.email = navParams.get("email");
+        console.log(this.email + " email");
     }
+    Login.prototype.ionViewWillEnter = function () {
+        if (this.tabBarElement) {
+            this.tabBarElement.style.display = 'none';
+        }
+    };
+    Login.prototype.ionViewWillLeave = function () {
+        if (this.tabBarElement) {
+            this.tabBarElement.style.display = 'flex';
+        }
+    };
     Login.prototype.login = function () {
         this.navCtrl.setRoot(TabPage);
+        // console.log(this.email);
+        //  this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(data => {
+        //    localStorage.clear();
+        //    localStorage.setItem('uid', data.uid);
+        //    this.navCtrl.setRoot(TabPage);
+        //  }, err => {
+        //    console.log('login Error =--', err);
+        //  });
     };
     Login.prototype.forgotPassword = function () {
         var prompt = this.alertCtrl.create({
@@ -56,7 +78,7 @@ var Login = /** @class */ (function () {
             selector: 'page-login',
             templateUrl: 'login.html'
         }),
-        __metadata("design:paramtypes", [NavController, AlertController])
+        __metadata("design:paramtypes", [NavController, AlertController, NavParams, AngularFireAuth])
     ], Login);
     return Login;
 }());

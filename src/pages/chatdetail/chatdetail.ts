@@ -36,10 +36,10 @@ export class ChatdetailPage {
   	this.Chatdetail ={
       img: 'assets/img/11.png', ownerimage:'assets/img/profile-img.png', item_title:'house', price:'25'};
     var uid = this.navParams.get('uid');
-    chatprovider.getChatRef(this.uid, this.interlocutor)
-    .then((chatRef:any)=>{
-      this.chats = this.af.list(chatRef);
-    });
+    // chatprovider.getChatRef(this.uid, this.interlocutor)
+    // .then((chatRef:any)=>{
+    //   this.chats = this.af.list(chatRef);
+    // });
   }
 
   ionViewDidLoad() {

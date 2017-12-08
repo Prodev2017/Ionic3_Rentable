@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ItemsProvider } from '../../providers/items/items';
 import { ChatdetailPage } from '../chatdetail/chatdetail';
 /*
   Generated class for the ChatPage page.
@@ -17,9 +18,10 @@ import { ChatdetailPage } from '../chatdetail/chatdetail';
   Ionic pages and navigation.
 */
 var ChatPage = /** @class */ (function () {
-    function ChatPage(navCtrl, navParams) {
+    function ChatPage(navCtrl, navParams, itemprovider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.itemprovider = itemprovider;
         this.chatdetails = ChatdetailPage;
         this.own_rent = "own";
         this.onelist =
@@ -38,16 +40,23 @@ var ChatPage = /** @class */ (function () {
                 { img: 'assets/img/22.png', title: 'Joseph', item_title: 'pear', history: '7 days ago' },
                 { img: 'assets/img/33.png', title: 'Joans', item_title: 'TV', history: '8 days ago' }
             ];
+        this.itemprovider.Getchatitems(localStorage.getItem('uid')).subscribe(function (data) {
+            console.log();
+        }, function (err) {
+            console.log();
+        });
     }
     ChatPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad ChatPagePage');
+    };
+    ChatPage.prototype.delete = function () {
     };
     ChatPage = __decorate([
         Component({
             selector: 'page-chat',
             templateUrl: 'chat.html'
         }),
-        __metadata("design:paramtypes", [NavController, NavParams])
+        __metadata("design:paramtypes", [NavController, NavParams, ItemsProvider])
     ], ChatPage);
     return ChatPage;
 }());

@@ -51,9 +51,9 @@
       </ion-col>
     </ion-row>
   </div>
-  <ion-card class="grid-list backcolor" *ngFor="let item of imagelist">
+  <ion-card class="grid-list backcolor" *ngFor="let item of imagelist; let i=index;">
     <div class="image-item" no-lines>
-      <img [navPush]="details" class="imageborder" style="background-color: white" src="{{item}}" />
+      <img (click)="selectimage(i)" class="imageborder" style="background-color: white" src="{{item}}" />
     </div>
   </ion-card>
   <ion-label style="color: black;">{{filename}}</ion-label>

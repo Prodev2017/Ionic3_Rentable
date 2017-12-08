@@ -8,94 +8,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-import { NavController } from 'ionic-angular';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-//firebase auth
-import firebase from 'firebase';
-/*
-  Generated class for the AuthenticateProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
+import { AppSetting } from '../api_route';
+import { Storage } from '@ionic/storage';
 var AuthenticateProvider = /** @class */ (function () {
-    function AuthenticateProvider(http, navCtrl) {
+    function AuthenticateProvider(http, appSettings, local) {
         this.http = http;
-        this.navCtrl = navCtrl;
-        this.isLoggedin = false;
-        this.AuthToken = null;
-        this.fireAuth = firebase.auth();
-        this.userData = firebase.database().ref('/userData');
+        this.appSettings = appSettings;
+        this.local = local;
+        this.apiUrl = this.appSettings.getApiURL();
+        this.http = http;
+        // code...
     }
-    Object.defineProperty(AuthenticateProvider, "parameters", {
-        get: function () {
-            return [Http];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    AuthenticateProvider.prototype.storeUserCredentials = function (token) {
-        window.localStorage.setItem('raja', token);
-        this.useCredentials(token);
+    AuthenticateProvider.prototype.Sendsms = function (smsnumber) {
+        console.log(smsnumber);
+        return this.http.post(this.apiUrl + 'service/sendsms', { 'phoneNumber': smsnumber });
     };
-    AuthenticateProvider.prototype.useCredentials = function (token) {
-        this.isLoggedin = true;
-        this.AuthToken = token;
+    AuthenticateProvider.prototype.smsverify = function (smsnumber, digitcode) {
+        return this.http.post(this.apiUrl + 'service/smsverify', { 'phoneNumber': smsnumber, 'code': digitcode });
     };
-    AuthenticateProvider.prototype.loadUserCredentials = function () {
-        var token = window.localStorage.getItem('raja');
-        this.useCredentials(token);
-    };
-    AuthenticateProvider.prototype.destroyUserCredentials = function () {
-        this.isLoggedin = false;
-        this.AuthToken = null;
-        window.localStorage.clear();
-    };
-    AuthenticateProvider.prototype.authenticate = function (user) {
-        var _this = this;
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        return new Promise(function (resolve, reject) {
-            _this.http.post('http://localhost:3333/authenticate', user, { headers: headers })
-                .subscribe(function (data) {
-                console.log(data + "rascal data");
-                if (data.json().success) {
-                    resolve(true);
-                }
-            }, function (err) {
-                reject(true);
-            });
+    AuthenticateProvider.prototype.signup = function (Usersignup) {
+        console.log("signup page");
+        console.log(Usersignup);
+        return this.http.post(this.apiUrl + 'user/signup', {
+            email: Usersignup.email,
+            phoneNumber: Usersignup.phonenumber,
+            password: Usersignup.password,
+            firstName: Usersignup.firstname,
+            lastName: Usersignup.lastname,
+            postalCode: Usersignup.postalcode,
+            deviceToken: Usersignup.uuid
         });
     };
-    AuthenticateProvider.prototype.addNumber = function (user) {
-        var _this = this;
-        var headers = new Headers();
-        console.log(user.number + "auth");
-        headers.append('Content-Type', 'application/json');
-        return new Promise(function (resolve) {
-            _this.http.post('http://localhost:3333/addnumber', user, { headers: headers })
-                .subscribe(function (data) {
-                if (data.json().success) {
-                    _this.storeUserCredentials(data.json().token);
-                    resolve(true);
-                }
-                else
-                    resolve(false);
-            });
-        });
-    };
-    AuthenticateProvider.prototype.register = function (email, password) {
-        var _this = this;
-        return this.fireAuth.createUserWithEmailAndPassword(email, password)
-            .then(function (newUser) {
-            _this.userData.child(newUser.uid).set({ email: email });
-        });
+    AuthenticateProvider.prototype.phoneverify = function (phonenumber) {
+        return this.http.post(this.apiUrl + 'user/hasphone', { 'phoneNumber': phonenumber });
     };
     AuthenticateProvider = __decorate([
         Injectable(),
-        __metadata("design:paramtypes", [Http,
-            NavController])
+        __metadata("design:paramtypes", [Http, AppSetting, Storage])
     ], AuthenticateProvider);
     return AuthenticateProvider;
 }());

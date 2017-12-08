@@ -13,23 +13,28 @@ import { RentPage } from '../rent/rent';
 import { MapModal } from '../modal-page/modal-page';
 import { ShareModal } from '../share-modal/share-modal';
 import { Home } from '../home/home';
+import { ItemsProvider } from '../../providers/items/items';
 import { Geolocation } from 'ionic-native';
 import { AcceptPage } from '../accept/accept';
 import { PickupPage } from '../pickup/pickup';
-import { ClaimrenterPage } from '../claimrenter/claimrenter';
+import { ClaimownerPage } from '../claimowner/claimowner';
+import { OtherprofilePage } from '../otherprofile/otherprofile';
+import { ChatdetailPage } from '../chatdetail/chatdetail';
 var Details = /** @class */ (function () {
-    function Details(navCtrl, navParams, myElement, modalCtrl, zone, viewCtrl) {
+    function Details(navCtrl, navParams, myElement, modalCtrl, zone, viewCtrl, itemprovider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.myElement = myElement;
         this.modalCtrl = modalCtrl;
         this.zone = zone;
         this.viewCtrl = viewCtrl;
+        this.itemprovider = itemprovider;
         this.showFooter = false;
         this.rentPage = RentPage;
         this.home = Home;
-        this.claim = ClaimrenterPage;
+        this.claim = ClaimownerPage;
         this.pickup = PickupPage;
+        this.otherprofile = OtherprofilePage;
         this.descriptionstatus = true;
         this.rentalstatus = false;
         this.locationstatus = false;
@@ -40,12 +45,40 @@ var Details = /** @class */ (function () {
         this.Product = {
             img: 'assets/img/11.png', ownerimage: 'assets/img/profile-img.png', ownername: 'John', item_title: 'house', price: '25', description: 'this is good rentalable book please use this Thanks', selectdate: '', total_cost: '100'
         };
+        this.detailitem = navParams.get("itemid");
+        this.uid = localStorage.getItem('uid');
         this.ionViewLoaded();
+        this.messagetext = "";
+        this.messagenumber = 350;
+        this.itemprovider.Getitemdetail(this.uid, this.detailitem).subscribe(function (data) {
+            console.log(data);
+        }, function (err) {
+            console.log(err);
+        });
     }
     Details.prototype.ionViewLoaded = function () {
         this.loadMap();
     };
     Details.prototype.loadMap = function () {
+    };
+    Details.prototype.number = function () {
+        var n = this.messagetext.length;
+        this.messagenumber = 350 - n;
+    };
+    Details.prototype.backicon = function () {
+        this.navCtrl.pop();
+    };
+    Details.prototype.sendrental = function () {
+        this.navCtrl.push(RentPage);
+        this.itemprovider.SendRental(this.uid, this.detailitem, this.date, this.price).subscribe(function (date) {
+            console.log(date);
+        }, function (err) {
+        });
+    };
+    Details.prototype.sendmessage = function () {
+        this.navCtrl.push(ChatdetailPage, {
+            message: this.messagetext
+        });
     };
     Details.prototype.addMarker = function () {
         var marker = new google.maps.Marker({
@@ -87,6 +120,11 @@ var Details = /** @class */ (function () {
                 _this.showFooter = false;
             });
         }
+    };
+    Details.prototype.MyCtrl = function ($scope, $ionicSlideBoxDelegate) {
+        $scope.nextSlide = function () {
+            $ionicSlideBoxDelegate.next();
+        };
     };
     Details.prototype.goto = function () {
         this.content.scrollToBottom(300); //300ms animation speed
@@ -170,7 +208,13 @@ var Details = /** @class */ (function () {
             selector: 'page-details',
             templateUrl: 'details.html'
         }),
-        __metadata("design:paramtypes", [NavController, NavParams, ElementRef, ModalController, NgZone, ViewController])
+        __metadata("design:paramtypes", [NavController,
+            NavParams,
+            ElementRef,
+            ModalController,
+            NgZone,
+            ViewController,
+            ItemsProvider])
     ], Details);
     return Details;
 }());

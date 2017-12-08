@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Postitemprovider } from '../../providers/items/postitem';
 import { RentPage } from '../rent/rent';
 /*
   Generated class for the RejectPage page.
@@ -17,9 +18,10 @@ import { RentPage } from '../rent/rent';
   Ionic pages and navigation.
 */
 var RejectPage = /** @class */ (function () {
-    function RejectPage(navCtrl, navParams) {
+    function RejectPage(navCtrl, navParams, postitemprovider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.postitemprovider = postitemprovider;
         this.rent = RentPage;
         this.tracks = [];
         this.isremove = false;
@@ -28,8 +30,6 @@ var RejectPage = /** @class */ (function () {
     }
     RejectPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad RejectPagePage');
-    };
-    RejectPage.prototype.toggle = function () {
     };
     RejectPage.prototype.myFunction = function (event) {
         var target = event.target || event.srcElement || event.currentTarget;
@@ -45,6 +45,7 @@ var RejectPage = /** @class */ (function () {
         for (var i = 0; i < count; ++i) {
             if (parent == children[i]) {
                 var image = this.rejectimage[i].activeimg;
+                this.reject = this.rejectreason[i].reason;
                 console.log(children[i]);
                 console.log(i + "i");
                 children[i].getElementsByTagName('img')[0].setAttribute("src", image);
@@ -56,12 +57,20 @@ var RejectPage = /** @class */ (function () {
             }
         }
     };
+    RejectPage.prototype.gorequest = function () {
+        this.navCtrl.pop();
+    };
+    RejectPage.prototype.Rejectsubmit = function () {
+        this.postitemprovider.rejectitem(this.isremove, this.reject).subscribe(function (data) {
+            console.log(data);
+        });
+    };
     RejectPage = __decorate([
         Component({
             selector: 'page-reject',
             templateUrl: 'reject.html'
         }),
-        __metadata("design:paramtypes", [NavController, NavParams])
+        __metadata("design:paramtypes", [NavController, NavParams, Postitemprovider])
     ], RejectPage);
     return RejectPage;
 }());

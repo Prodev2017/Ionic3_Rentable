@@ -20,6 +20,7 @@ export class ChatPage {
   rentlist: Array<any>;
 	chatdetails=ChatdetailPage;
   own_rent:string="own";
+  itemdelete:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public itemprovider: ItemsProvider) {
   	this.onelist =
@@ -45,6 +46,8 @@ export class ChatPage {
       console.log();
     })
 
+    this.itemdelete=false;
+
   }
 
   ionViewDidLoad() {
@@ -52,7 +55,32 @@ export class ChatPage {
   }
 
   delete(){
+    this.itemdelete=!this.itemdelete;
     
+  }
+
+  deleteown(n){
+    console.log('n ++', n);
+    for (var i = 0; i <this.onelist.length; i++) {
+      if(this.onelist[i]==n){
+        this.onelist.splice(i, 1);
+      }
+    }
+  }
+
+  deleterent(n){
+    console.log('n ++', n);
+    for (var i = 0; i <this.rentlist.length; i++) {
+      if(this.rentlist[i]==n){
+        this.rentlist.splice(i, 1);
+      }
+    }
+  }
+
+  chatdetail(){
+    if (this.itemdelete==false) {
+      this.navCtrl.push(ChatdetailPage);
+    }
   }
 
 }

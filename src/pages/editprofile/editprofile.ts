@@ -6,7 +6,7 @@ import { KeyboardDirective } from '../../directives/keyboard/keyboard';
 import { File } from '@ionic-native/file';
 import { ProfileProvider } from '../../providers/payment/profile';
 import { storage } from 'firebase';
-
+import firebase from 'firebase';
 import { Profile } from '../profile/profile';
 import { ProfileinputPage } from '../profileinput/profileinput';
 
@@ -54,6 +54,12 @@ export class EditprofilePage {
 
     this.imageURI="assets/img/profile-img.png";
 
+    
+
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad EditprofilePagePage');
     this.uuid=localStorage.getItem('uid');
     this.Profiledata=this.profileprovider.Getprofile(this.uuid).subscribe(data =>{
       this.firstname=data.json().result.firstName;
@@ -66,11 +72,6 @@ export class EditprofilePage {
     err =>{
       console.log(err);
     });
-
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditprofilePagePage');
 
   }
 
@@ -127,29 +128,44 @@ export class EditprofilePage {
 
 
   getImage() {
-    let imageSource = (this.device.isVirtual ? this.camera.PictureSourceType.PHOTOLIBRARY : this.camera.PictureSourceType.CAMERA);
+    var filename;
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.FILE_URI,
-      sourceType: imageSource,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.CAMERA
     }
 
     this.camera.getPicture(options).then((imageData) => {
       this.imageURI = imageData;
-      this.captureurl = 'data:image/jpeg;base64,' + imageData;
-      const pictures = storage().ref();
-      const filename =Math.floor(Date.now()/1000);
+      const pictures = firebase.storage().ref();
+      filename =Math.floor(Date.now()/1000);
       const imageref = pictures.child('images/${filename}.jpg');
-      var uploadtask = imageref.putString(this.captureurl, storage.StringFormat.DATA_URL).then((snapshot)=>{
+      var uploadtask = imageref.putString(imageData, 'base64').then((snapshot)=>{
         console.log("success image upload", snapshot);
       });
+
+      const selfieRef = firebase.storage().ref('profilePictures/user1/profilePicture.png');
+      selfieRef
+        .putString(imageData, 'base64', {contentType: 'image/png'})
+        .then(savedProfilePicture => {
+          firebase
+            .database()
+            .ref(`users/user1/profilePicture`)
+            .set(savedProfilePicture.downloadURL);
+        });
 
     }, (err) => {
       console.log(err);
       this.presentToast(err);
     });
+
+    // this.profileprovider.ChangeProfile(this.email, this.phonenumber, this.password, this.firstname, this.lastname, filename, this.postalcode).subscribe(
+    //   data=>{
+    //     alert("success update");
+    //     this.navCtrl.popTo(EditprofilePage);
+    //   },err =>{
+    //     alert("error");
+    //   });
   }
 
 

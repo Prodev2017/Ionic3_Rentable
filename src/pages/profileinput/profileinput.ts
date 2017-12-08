@@ -84,10 +84,11 @@ export class ProfileinputPage {
     this.profileprovier.ChangeProfile(this.email, this.phonenumber, this.password, this.firstname, this.lastname, this.photourl, this.postalcode).subscribe(
       data=>{
         alert("success update");
+        this.navCtrl.popTo(EditprofilePage);
       },err =>{
         alert("error");
-      })
-  	this.navCtrl.popTo(EditprofilePage);
+      });
+  	
   }
 
 }

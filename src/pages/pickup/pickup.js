@@ -21,10 +21,22 @@ var PickupPage = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.details = Details;
-        this.agree = "yes";
+        this.active_flag = true;
+        this.agree = "no";
     }
     PickupPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad PickupPage');
+    };
+    PickupPage.prototype.godetail = function () {
+        this.navCtrl.pop();
+    };
+    PickupPage.prototype.radioChecked = function () {
+        if (this.agree == "no") {
+            this.active_flag = true;
+        }
+        else {
+            this.active_flag = false;
+        }
     };
     PickupPage = __decorate([
         IonicPage(),

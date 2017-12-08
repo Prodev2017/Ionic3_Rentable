@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ProfileProvider } from '../../providers/payment/profile';
 import { Profile } from '../profile/profile';
 /*
   Generated class for the MyitemPage page.
@@ -17,9 +18,10 @@ import { Profile } from '../profile/profile';
   Ionic pages and navigation.
 */
 var MyStats = /** @class */ (function () {
-    function MyStats(navCtrl, navParams) {
+    function MyStats(navCtrl, navParams, profileprovider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.profileprovider = profileprovider;
         this.profile = Profile;
         this.hexColor = '#8d8d9b';
         this.money = "out";
@@ -56,6 +58,39 @@ var MyStats = /** @class */ (function () {
                 { year: '2014', price: '2500' },
                 { year: '2013', price: '3100' }
             ];
+        var uid = localStorage.getItem('uid');
+        this.profileprovider.moneyindividual(uid).subscribe(function (data) {
+            console.log(data);
+        }, function (err) {
+        });
+        this.profileprovider.moneyinmonth(uid).subscribe(function (data) {
+            console.log(data);
+        }, function (err) {
+        });
+        this.profileprovider.moneyinquratly(uid).subscribe(function (data) {
+            console.log(data);
+        }, function (err) {
+        });
+        this.profileprovider.moneyinyear(uid).subscribe(function (data) {
+            console.log(data);
+        }, function (err) {
+        });
+        this.profileprovider.moneyoutindividual(uid).subscribe(function (data) {
+            console.log(data);
+        }, function (err) {
+        });
+        this.profileprovider.moneyoutmonth(uid).subscribe(function (data) {
+            console.log(data);
+        }, function (err) {
+        });
+        this.profileprovider.moneyoutquartly(uid).subscribe(function (data) {
+            console.log(data);
+        }, function (err) {
+        });
+        this.profileprovider.moneyoutyear(uid).subscribe(function (data) {
+            console.log(data);
+        }, function (err) {
+        });
     }
     MyStats.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad MyitemPagePage');
@@ -89,7 +124,7 @@ var MyStats = /** @class */ (function () {
             selector: 'page-myitem',
             templateUrl: 'myitem.html'
         }),
-        __metadata("design:paramtypes", [NavController, NavParams])
+        __metadata("design:paramtypes", [NavController, NavParams, ProfileProvider])
     ], MyStats);
     return MyStats;
 }());

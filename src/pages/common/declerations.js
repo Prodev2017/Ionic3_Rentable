@@ -43,6 +43,7 @@ import { ProfileinputPage } from '../profileinput/profileinput';
 import { ClaimrenterPage } from '../claimrenter/claimrenter';
 import { ClaimownerPage } from '../claimowner/claimowner';
 import { PickupPage } from '../pickup/pickup';
+import { OpportunityPage } from '../opportunity/opportunity';
 export var allPages = {
     Login: Login,
     Register: Register,
@@ -88,6 +89,7 @@ export var allPages = {
     ProfileinputPage: ProfileinputPage,
     ClaimownerPage: ClaimownerPage,
     ClaimrenterPage: ClaimrenterPage,
-    PickupPage: PickupPage
+    PickupPage: PickupPage,
+    OpportunityPage: OpportunityPage
 };
 //# sourceMappingURL=declerations.js.map

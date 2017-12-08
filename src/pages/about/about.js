@@ -9,19 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ProfileProvider } from '../../providers/payment/profile';
 import { Profile } from '../profile/profile';
 var About = /** @class */ (function () {
-    function About(navCtrl, navParams) {
+    function About(navCtrl, navParams, profileprovier) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.profileprovier = profileprovier;
         this.profile = Profile;
+        this.profileprovier.Aboutinfo(localStorage.getItem('uid')).subscribe(function (data) {
+            console.log(data);
+            _this.about = data;
+        }, function (err) {
+            console.log(err);
+        });
     }
     About = __decorate([
         Component({
             selector: 'page-about',
             templateUrl: 'about.html'
         }),
-        __metadata("design:paramtypes", [NavController, NavParams])
+        __metadata("design:paramtypes", [NavController, NavParams, ProfileProvider])
     ], About);
     return About;
 }());

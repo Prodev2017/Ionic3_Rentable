@@ -9,6 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ClaimrenterPage } from '../claimrenter/claimrenter';
+import { Details } from '../details/details';
 /**
  * Generated class for the ClaimownerPage page.
  *
@@ -19,9 +21,16 @@ var ClaimownerPage = /** @class */ (function () {
     function ClaimownerPage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.detail = Details;
+        this.claimrenter = ClaimrenterPage;
+        this.titlenumber = 350;
     }
     ClaimownerPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad ClaimownerPage');
+    };
+    ClaimownerPage.prototype.number = function () {
+        var n = this.itemtitle.length;
+        this.titlenumber = 350 - n;
     };
     ClaimownerPage = __decorate([
         IonicPage(),

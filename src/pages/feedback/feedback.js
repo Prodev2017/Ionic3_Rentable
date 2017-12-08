@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ProfileProvider } from '../../providers/payment/profile';
 import { Profile } from '../profile/profile';
 /**
  * Generated class for the FeedbackPage page.
@@ -17,13 +18,41 @@ import { Profile } from '../profile/profile';
  * on Ionic pages and navigation.
  */
 var FeedbackPage = /** @class */ (function () {
-    function FeedbackPage(navCtrl, navParams) {
+    function FeedbackPage(navCtrl, navParams, profileprovider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.profileprovider = profileprovider;
         this.profile = Profile;
+        this.condition = [0, 1, 2, 3, 4];
+        this.goodcondition = [];
+        for (var i = 0; i < 5; ++i) {
+            this.goodcondition[i] = false;
+        }
+        this.titlenumber = 300;
     }
     FeedbackPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad FeedbackPage');
+    };
+    FeedbackPage.prototype.changecondition = function (i) {
+        console.log(i, "id");
+        for (var j = 0; j <= i; ++j) {
+            this.goodcondition[j] = true;
+        }
+        for (var l = i + 1; l <= 5; ++l) {
+            this.goodcondition[l] = false;
+        }
+        this.appfeedback = i;
+    };
+    FeedbackPage.prototype.number = function () {
+        var n = this.feedbacktext.length;
+        this.titlenumber = 400 - n;
+    };
+    FeedbackPage.prototype.submit = function () {
+        this.profileprovider.Appfeedback(this.appfeedback, this.feedbacktext).subscribe(function (data) {
+            console.log(data);
+        }, function (err) {
+            console.log(err);
+        });
     };
     FeedbackPage = __decorate([
         IonicPage(),
@@ -31,7 +60,7 @@ var FeedbackPage = /** @class */ (function () {
             selector: 'page-feedback',
             templateUrl: 'feedback.html',
         }),
-        __metadata("design:paramtypes", [NavController, NavParams])
+        __metadata("design:paramtypes", [NavController, NavParams, ProfileProvider])
     ], FeedbackPage);
     return FeedbackPage;
 }());

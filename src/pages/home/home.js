@@ -10,23 +10,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { MapModal } from '../modal-page/modal-page';
+import { ItemsProvider } from '../../providers/items/items';
 import { Profile } from '../profile/profile';
 import { SearchPage } from '../search/search';
 import { Details } from '../details/details';
 var Home = /** @class */ (function () {
-    function Home(navCtrl, navParams, modalCtrl) {
+    function Home(navCtrl, navParams, modalCtrl, itemprovider) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.modalCtrl = modalCtrl;
-        this.hexColor = '#8d8d9b';
+        this.itemprovider = itemprovider;
         this.profile = Profile;
         this.search = SearchPage;
         this.details = Details;
+        console.log("it is constructor");
         this.expanded = true;
         this.like = [];
         for (var i = 0; i < 12; ++i) {
             this.like[i] = false;
         }
+        this.favouritlist = [];
+        this.itemprovider.Getfullitems(localStorage.getItem('uid')).subscribe(function (data) {
+            console.log(data);
+            _this.itemlist = data.json().result;
+        }, function (err) {
+            console.log(err);
+        });
         this.categorylist = [
             { active_img: 'assets/icon/cat-nearyou.png', title: 'Nearby', inactive_img: 'assets/icon/cat-nearyou-grey.png', value: 'nearby' },
             { active_img: 'assets/icon/cat-electronics.png', title: 'Electronics', inactive_img: 'assets/icon/cat-electronics-grey.png', value: 'electronics' },
@@ -40,7 +50,6 @@ var Home = /** @class */ (function () {
             { active_img: 'assets/icon/cat-party.png', title: 'Party and Events', inactive_img: 'assets/icon/cat-party-grey.png', value: 'party' },
             { active_img: 'assets/icon/cat-other.png', title: 'Other', inactive_img: 'assets/icon/cat-other-grey.png', value: 'other' },
         ];
-        this.neargrid = [{ img: 'assets/img/01.png', title: 'apartment', icon: 'ios-home-outline' }, { img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie-outline' }, { img: 'assets/img/03.png', title: 'shop', icon: 'ios-shirt-outline' }, { img: 'assets/img/04.png', title: 'rent', icon: 'ios-headset-outline' }, { img: 'assets/img/01.png', title: 'apartment', icon: 'ios-home' }, { img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie' }, { img: 'assets/img/03.png', title: 'shop', icon: 'md-cart' }, { img: 'assets/img/04.png', title: 'rent', icon: 'md-headset' }, { img: 'assets/img/01.png', title: 'apartment', icon: 'ios-home' }, { img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie' }, { img: 'assets/img/03.png', title: 'shop', icon: 'md-cart' }, { img: 'assets/img/04.png', title: 'rent', icon: 'md-headset' }];
         this.categorygrid = [
             { img: 'assets/img/01.png', price: '21', id: '0' },
             { img: 'assets/img/02.png', price: '56', id: '1' },
@@ -56,22 +65,32 @@ var Home = /** @class */ (function () {
             { img: 'assets/img/04.png', price: '212', id: '11' }
         ];
     }
+    Home.prototype.ionViewDidLoad = function () {
+        console.log("it is last");
+    };
+    Home.prototype.ionViewCanLeave = function () {
+        console.log("it is finish");
+    };
+    Home.prototype.godetails = function () {
+        this.navCtrl.push(Details, {
+            itemid: this.itemid
+        });
+    };
     Home.prototype.presentModal = function () {
         var modal = this.modalCtrl.create(MapModal);
         modal.present();
     };
     Home.prototype.ActiveLike = function (i) {
-        this.like[i] = !this.like[i];
+        this.favouritlist[i] = true;
+        this.like[i] = false;
     };
-    Home.prototype.changecolor = function () {
-        if (this.hexColor === '#ffffff') {
-            this.hexColor = '#8d8d9b';
-        }
-        else {
-            this.hexColor = '#ffffff';
-        }
+    Home.prototype.DeactiveLike = function (i) {
+        this.favouritlist[i] = false;
+        this.like[i] = true;
     };
-    Home.prototype.filterItems = function () {
+    Home.prototype.filterItems = function (event) {
+        console.log("input");
+        console.log(this.searchtext + "searchtext");
     };
     Home.prototype.myFunction = function (event) {
         var target = event.target || event.srcElement || event.currentTarget;
@@ -98,7 +117,7 @@ var Home = /** @class */ (function () {
             selector: 'page-home',
             templateUrl: 'home.html'
         }),
-        __metadata("design:paramtypes", [NavController, NavParams, ModalController])
+        __metadata("design:paramtypes", [NavController, NavParams, ModalController, ItemsProvider])
     ], Home);
     return Home;
 }());

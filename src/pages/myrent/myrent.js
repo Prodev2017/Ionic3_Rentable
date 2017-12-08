@@ -9,12 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ItemsProvider } from '../../providers/items/items';
 import { Likes } from '../likes/likes'; //favourites screen
 import { Details } from '../details/details';
 var Myrent = /** @class */ (function () {
-    function Myrent(navCtrl, navParams) {
+    function Myrent(navCtrl, navParams, itemprovider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.itemprovider = itemprovider;
         this.own_rent = "own";
         this.date = "current";
         this.isavailable = "available";
@@ -31,6 +33,26 @@ var Myrent = /** @class */ (function () {
         for (var i = 0; i < 4; ++i) {
             this.own_like[i] = false;
         }
+        this.itemprovider.Getownavailable(localStorage.getItem('uid')).subscribe(function (data) {
+            console.log(data.json().result);
+        }, function (err) {
+            console.log(err);
+        });
+        this.itemprovider.Getownrent(localStorage.getItem('uid')).subscribe(function (data) {
+            console.log(data.json().result);
+        }, function (err) {
+            console.log(err);
+        });
+        this.itemprovider.Getrentcurrent(localStorage.getItem('uid')).subscribe(function (data) {
+            console.log(data.json().result);
+        }, function (err) {
+            console.log(err);
+        });
+        this.itemprovider.Getrentcurrent(localStorage.getItem('uid')).subscribe(function (data) {
+            console.log(data.json().result);
+        }, function (err) {
+            console.log(err);
+        });
         this.own_avaiablelist =
             [
                 { img: 'assets/img/11.png', title: 'John', view: '10', favourity: '20', id: '0' },
@@ -41,6 +63,8 @@ var Myrent = /** @class */ (function () {
         this.own_rentedlist =
             [
                 { img: 'assets/img/11.png', title: 'apartment', profileimage: 'assets/img/profile-img.png', profilename: 'John', delete: 'yes', rentday: '5' },
+                { img: 'assets/img/22.png', title: 'wedding', profileimage: 'assets/img/profile-img.png', profilename: 'rascal', delete: 'yes', rentday: '2' },
+                { img: 'assets/img/33.png', title: 'shop', profileimage: 'assets/img/profile-img.png', profilename: 'sizza', delete: 'yes', rentday: '3' },
                 { img: 'assets/img/22.png', title: 'wedding', profileimage: 'assets/img/profile-img.png', profilename: 'rascal', delete: 'yes', rentday: '2' },
                 { img: 'assets/img/33.png', title: 'shop', profileimage: 'assets/img/profile-img.png', profilename: 'sizza', delete: 'yes', rentday: '3' }
             ];
@@ -58,17 +82,18 @@ var Myrent = /** @class */ (function () {
                 { img: 'assets/img/33.png', title: 'shop', profileimage: 'assets/img/profile-img.png', profilename: 'sizza', delete: 'yes', rentday: '2' }
             ];
     }
-    /*removeItem(item){
-      for(var i = 0; i < this.list.length; i++) {
-   
-        if(this.list[i] == item){
-          this.list.splice(i, 1);
-        }
-   
-      }
-    }*/
     Myrent.prototype.showdelete = function () {
-        this.showdeleteicon = !this.showdeleteicon;
+        if (this.own_rent == "own") {
+            if (this.isavailable == "available") {
+                this.showdeleteicon = true;
+            }
+            if (this.isavailable == "rented") {
+                this.showdeleteicon = false;
+            }
+        }
+        if (this.own_rent == "rent") {
+            this.showdeleteicon = false;
+        }
     };
     Myrent.prototype.ownshowheart = function (i) {
         this.own_like[i] = !this.own_like[i];
@@ -81,7 +106,7 @@ var Myrent = /** @class */ (function () {
             selector: 'page-myrent',
             templateUrl: 'myrent.html'
         }),
-        __metadata("design:paramtypes", [NavController, NavParams])
+        __metadata("design:paramtypes", [NavController, NavParams, ItemsProvider])
     ], Myrent);
     return Myrent;
 }());

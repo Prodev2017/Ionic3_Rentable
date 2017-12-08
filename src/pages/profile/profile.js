@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Keyboard } from 'ionic-native';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AddpaymentPage } from '../addpayment/addpayment';
 import { EditprofilePage } from '../editprofile/editprofile';
 import { Home } from '../home/home';
@@ -18,9 +19,10 @@ import { FeedbackPage } from '../feedback/feedback';
 import { LandingPage } from '../landing/landing';
 import { MyStats } from '../myitem/myitem';
 var Profile = /** @class */ (function () {
-    function Profile(navCtrl, navParams) {
+    function Profile(navCtrl, navParams, afAuth) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.afAuth = afAuth;
         this.addpayment = AddpaymentPage;
         this.editprofile = EditprofilePage;
         this.home = Home;
@@ -28,6 +30,7 @@ var Profile = /** @class */ (function () {
         this.feedback = FeedbackPage;
         this.logout = LandingPage;
         this.mystats = MyStats;
+        console.log("it is constructor");
         this.profile = {
             img: 'assets/img/profile-img.png', name: 'John Doe', address: 'Sydney Australia', rate: '4.5', rent_nuber: '10', owner_number: '20'
         };
@@ -39,12 +42,20 @@ var Profile = /** @class */ (function () {
             Keyboard.show(); // Android Mobiles
         }
     };
+    Profile.prototype.gohome = function () {
+        this.navCtrl.setRoot(Home);
+    };
+    Profile.prototype.gologout = function () {
+        this.afAuth.auth.signOut();
+        localStorage.setItem("uid", "");
+        this.navCtrl.setRoot(LandingPage);
+    };
     Profile = __decorate([
         Component({
             selector: 'page-profile',
             templateUrl: 'profile.html'
         }),
-        __metadata("design:paramtypes", [NavController, NavParams])
+        __metadata("design:paramtypes", [NavController, NavParams, AngularFireAuth])
     ], Profile);
     return Profile;
 }());
