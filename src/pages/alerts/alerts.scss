@@ -72,7 +72,7 @@ page-alerts {
 	}
 
   .grid-list{
-    width: 42vw;
+    width: 41vw;
     float: left;
     padding-bottom: 0;
     padding:0px !important;
@@ -125,7 +125,7 @@ page-alerts {
 
   .alertname{
   	color: black;
-    font-size: 2rem;
+    font-size: 2rem !important;
     padding-top: 15px;
     font-weight:600;
     padding-bottom: 4px;
@@ -148,6 +148,10 @@ page-alerts {
     &.dollar{
       margin:7px 0 0 12px
     }
+  }
+
+  .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+    border-bottom: 0;
   }
 
 }
