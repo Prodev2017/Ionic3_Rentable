@@ -13,28 +13,28 @@ export class Postitemprovider {
     console.log('Hello PaymentProvider Provider');
   }
 
-  public Itemsave(fairprice,
+  public Itemsave(
       dailyprice,
-      weeklyprice,
-      fee,
       distance,
       deliver,
+      categoryid,
       itemtitle,
-      category,
       conditionmark,
-      itemdetails
+      itemdetails, 
+      imagurl,
+      owerid
     ){
-      return this.http.post(this.apiUrl+'item/saveitem', 
+      return this.http.post(this.apiUrl+'item/create', 
         {
-          fairprice: fairprice,
-          dailyprice: dailyprice,
-          weeklyprice: weeklyprice,
-          fee:fee,
+          price: dailyprice,
+          catogoryId:categoryid,
           distance:distance,
-          itemtitle: itemtitle,
-          category: category,
+          title: itemtitle,
+          categoryId: categoryid,
           conditionmark: conditionmark,
-          itemdetails: itemdetails
+          itemdetails: itemdetails,
+          imgUrl:imagurl,
+          description:itemdetails
         });
     }
 

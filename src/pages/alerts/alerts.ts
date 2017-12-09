@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 import { ItemsProvider } from '../../providers/items/items';
-
 import { AlertdetailPage } from '../alertdetail/alertdetail';
 import { OpportunityPage } from '../opportunity/opportunity';
 

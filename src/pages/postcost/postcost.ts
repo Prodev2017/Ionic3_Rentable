@@ -21,7 +21,9 @@ export class PostcostPage {
   weeklyprice:any;
   fairprice:any;
   distance:any;
-
+  uid:any;
+  imageurl:any;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public postitemprovider: Postitemprovider) {
     this.deliver=false;
     this.itempost=navParams.get("itempost");
@@ -58,16 +60,15 @@ export class PostcostPage {
   Postitem(){
     this.postitemprovider.Itemsave
     (
-      this.fairprice,
       this.dailyprice,
-      this.weeklyprice,
-      this.fee,
       this.distance,
+      this.itempost.category,
       this.deliver,
       this.itempost.itemtitle,
-      this.itempost.category,
       this.itempost.conditionmark,
-      this.itempost.conditiontitle
+      this.itempost.conditiontitle,
+      this.imageurl,
+      this.uid
     ).subscribe(data=>{
 
     }, 

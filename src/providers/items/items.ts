@@ -20,7 +20,7 @@ export class ItemsProvider {
   }
 
   public Getitems(){
-    return this.http.get(this.apiUrl+'item/getitem');
+    return this.http.get(this.apiUrl+'item/index');
   }
 
   public addfavourity(itemnumber){
