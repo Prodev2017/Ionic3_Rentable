@@ -23,7 +23,7 @@ export class PostcostPage {
   distance:any;
   uid:any;
   imageurl:any;
-  
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public postitemprovider: Postitemprovider) {
     this.deliver=false;
     this.itempost=navParams.get("itempost");
@@ -70,10 +70,10 @@ export class PostcostPage {
       this.imageurl,
       this.uid
     ).subscribe(data=>{
-
+      alert('success posted item');
     }, 
     err =>{
-
+      alert('failed');
     });
   }
 
