@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController,NavParams } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Device } from '@ionic-native/device';
+
+import { AuthenticateProvider } from '../../providers/authenticate/authenticate';
+
 
 import { Register } from '../register/register';
 import { Home } from '../home/home';
@@ -20,8 +24,15 @@ export class Login {
   password:any;
   email:any;
   tabBarElement:any;
-
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController,public navParams:NavParams, public afAuth: AngularFireAuth) {
+  type:any;
+  constructor
+  (
+    public navCtrl: NavController,
+    public alertCtrl: AlertController,
+    public navParams:NavParams,
+    public afAuth: AngularFireAuth,
+    private device: Device
+  ) {
     this.expanded = true;
     this.name="Matias";
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
@@ -43,6 +54,8 @@ export class Login {
 
   login() {
     this.navCtrl.setRoot(TabPage);
+    this.type = this.device.platform;
+    console.log('device type  ',this.type);
     // console.log(this.email);
     //  this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(data => {
     //    localStorage.clear();

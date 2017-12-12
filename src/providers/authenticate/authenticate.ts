@@ -23,6 +23,10 @@ export class AuthenticateProvider {
     return this.http.post(this.apiUrl+'service/smsverify', {'phoneNumber': smsnumber, 'code':digitcode});
   }
 
+  public sendtoken(type, token){
+    return this.http.post(this.apiUrl+'service/pushtoken', {type: type, token: token});
+  }
+
   public signup(Usersignup){
     console.log("signup page");
     console.log(Usersignup );

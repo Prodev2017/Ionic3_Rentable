@@ -60,10 +60,6 @@ export class ItemsProvider {
     return this.http.post(this.apiUrl + 'item/rentcurrent',  {uid: uuid});
   }
 
-  public Getfullitems(uuid){
-    return this.http.post(this.apiUrl + 'item/fullitem',  {uid: uuid});
-  }
-
   public Getchatitems(uuid){
     return this.http.post(this.apiUrl + 'item/chatitem',  {uid: uuid});
   }

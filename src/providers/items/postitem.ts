@@ -22,18 +22,19 @@ export class Postitemprovider {
       conditionmark,
       itemdetails, 
       imagurl,
-      owerid
+      ownerid
     ){
+      console.log(categoryid + " categoryid");
       return this.http.post(this.apiUrl+'item/create', 
         {
-          price: dailyprice,
-          catogoryId:categoryid,
-          distance:distance,
           title: itemtitle,
-          categoryId: categoryid,
-          conditionmark: conditionmark,
-          itemdetails: itemdetails,
+          price: dailyprice,
+          category: categoryid,
           imgUrl:imagurl,
+          conditionmark: conditionmark,
+          favority:0,
+          owner: ownerid,
+          distance:distance,
           description:itemdetails
         });
     }

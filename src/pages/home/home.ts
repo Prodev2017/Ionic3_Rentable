@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ModalController, Content } from 'ionic-angular';
 import { List } from '../list/list';
 import { MapModal } from '../modal-page/modal-page';
 import { ItemsProvider } from '../../providers/items/items';
@@ -13,37 +13,41 @@ import { Details } from '../details/details';
   templateUrl: 'home.html'
 })
 export class Home {
+  @ViewChild(Content) content: Content;
 
   expanded: Boolean;
   grid: Array<any>;
   categorygrid: Array<any>;
   categorylist:Array<any>;
   like: any;
-  itemlist:any;
+  itemlist:Array<any>;
   favouritlist:any;
   searchtext:any;
   itemid:any;
   profile=Profile;
   search=SearchPage;
   details=Details;
-
+  searchcategory:Array<any>;
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public itemprovider: ItemsProvider) {
     console.log("it is constructor");
     this.expanded = true;
-
+    this.itemlist=[];
     this.like = [];
     for (var i = 0; i < 12; ++i) {
       this.like[i]=false;
     }
     this.favouritlist=[];
 
-    this.itemprovider.Getfullitems(localStorage.getItem('uid')).subscribe(data=>{
-      console.log(data);
+    this.itemprovider.Getitems().subscribe(data=>{
+      for (var j=0;j<data.json().result.length;j++) {
+        this.itemlist[j]=data.json().result[j];
+        console.log(this.itemlist[j]);
+      }
       this.itemlist=data.json().result;
     }, err =>{
       console.log(err);
     })
-
+    this.searchcategory=this.itemlist;
     this.categorylist = [
       {active_img: 'assets/icon/cat-nearyou.png', title: 'Nearby', inactive_img: 'assets/icon/cat-nearyou-grey.png', value:'nearby'},
       {active_img: 'assets/icon/cat-electronics.png', title: 'Electronics', inactive_img: 'assets/icon/cat-electronics-grey.png', value:'electronics'},
@@ -119,11 +123,12 @@ export class Home {
     var preparent = parent.parentElement;
     var children = preparent.children;
     var count = children.length;
+    var categoryid;
     for (var i = 0; i < count; ++i) {
       if(parent==children[i]){
         var image=this.categorylist[i].active_img;
-        console.log(i);
-        console.log(children[i].getElementsByTagName('img')[0].getAttribute("data-inactive"));
+        categoryid = this.categorylist[i].title;
+        console.log("categoryid", categoryid);
         children[i].getElementsByTagName('img')[0].setAttribute("src", image);
       }
       else{
@@ -131,6 +136,17 @@ export class Home {
         children[i].getElementsByTagName('img')[0].setAttribute("src", inactiveimage);
       }
     }
+    var n=0;
+    this.searchcategory=[];
+    for (var i = 0; i<this.itemlist.length; i++) {
+      if (this.itemlist[i].category==categoryid) {
+        this.searchcategory[n]=this.itemlist[i];
+        console.log("success select id");
+        n++;
+      }
+    }
+    console.log('n', n);
+    this.content.resize();
   }
 
 }

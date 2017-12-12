@@ -27,6 +27,7 @@ export class PostcostPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public postitemprovider: Postitemprovider) {
     this.deliver=false;
     this.itempost=navParams.get("itempost");
+    this.uid=localStorage.getItem('uid');
   }
 
   ionViewDidLoad() {
@@ -58,12 +59,13 @@ export class PostcostPage {
   }
 
   Postitem(){
+    console.log('category',this.itempost.category);
     this.postitemprovider.Itemsave
     (
       this.dailyprice,
       this.distance,
-      this.itempost.category,
       this.deliver,
+      this.itempost.category,
       this.itempost.itemtitle,
       this.itempost.conditionmark,
       this.itempost.conditiontitle,
@@ -71,6 +73,7 @@ export class PostcostPage {
       this.uid
     ).subscribe(data=>{
       alert('success posted item');
+      this.navCtrl.push(AddPage);
     }, 
     err =>{
       alert('failed');
