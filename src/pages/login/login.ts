@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, AlertController,NavParams } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Device } from '@ionic-native/device';
-
 import { AuthenticateProvider } from '../../providers/authenticate/authenticate';
+import {FCM, NotificationData} from "@ionic-native/fcm";
 
 
 import { Register } from '../register/register';
@@ -25,20 +25,33 @@ export class Login {
   email:any;
   tabBarElement:any;
   type:any;
+  token:any;
   constructor
   (
     public navCtrl: NavController,
     public alertCtrl: AlertController,
     public navParams:NavParams,
     public afAuth: AngularFireAuth,
-    private device: Device
+    private device: Device,
+    private fcm:FCM,
+    public authporvider: AuthenticateProvider
   ) {
     this.expanded = true;
     this.name="Matias";
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.email=navParams.get("email");
     console.log(this.email + " email");
+    this.fcm.getToken()
+      .then((token:string)=>{
+        this.token=token;
+      })
+      .catch(error=>{
+        //ocurrió un error al procesar el token
+        console.error(error);
+      });
   }
+
+
 
   ionViewWillEnter() {
     if(this.tabBarElement){
@@ -56,14 +69,17 @@ export class Login {
     this.navCtrl.setRoot(TabPage);
     this.type = this.device.platform;
     console.log('device type  ',this.type);
-    // console.log(this.email);
-    //  this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(data => {
-    //    localStorage.clear();
-    //    localStorage.setItem('uid', data.uid);
-    //    this.navCtrl.setRoot(TabPage);
-    //  }, err => {
-    //    console.log('login Error =--', err);
-    //  });
+    console.log(this.email);
+   //  this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(data => {
+   //    localStorage.clear();
+   //    localStorage.setItem('uid', data.uid);
+   //    this.authporvider.sendtoken(data.uid, this.token, this.device).then(data =>{
+   //      this.navCtrl.setRoot(TabPage);
+   //   });
+   // }, err => {
+   //   console.log('login Error =--', err);
+   // });
+
   }
 
   forgotPassword() {

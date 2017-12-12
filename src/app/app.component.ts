@@ -4,6 +4,7 @@ import { StatusBar  } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Keyboard } from 'ionic-native';
+import {FCM, NotificationData} from "@ionic-native/fcm";
 
 //import { TabsPage } from '../pages/tabs/tabs';
 import { LandingPage } from '../pages/landing/landing';
@@ -15,8 +16,9 @@ import { Login } from '../pages/login/login';
 export class MyApp {
   //rootPage:any = TabsPage;
   rootPage: any = LandingPage;
+  token:any;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private afAuth: AngularFireAuth) {
+  constructor(platform: Platform, statusBar: StatusBar,private fcm:FCM, splashScreen: SplashScreen,private afAuth: AngularFireAuth) {
 
     afAuth.authState.subscribe(user => {
       if (!user) {
@@ -38,8 +40,32 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.fcm.getToken()
+      .then((token:string)=>{
+       console.log("The token to use is: ",token);
+       this.token=token;
+      })
+      .catch(error=>{
+        console.error(error);
+      });
 
-      Keyboard.hideKeyboardAccessoryBar(false);
+      this.fcm.onTokenRefresh().subscribe(
+        (token:string)=>console.log("Nuevo token",token),
+        error=>console.error(error)
+      );
+
+      this.fcm.onNotification().subscribe(
+        (data:NotificationData)=>{
+          if(data.wasTapped){
+            alert(JSON.stringify(data));
+          }else{
+
+            alert(JSON.stringify(data))
+          }
+         },error=>{
+          console.error("Error in notification",error)
+         }
+      );
     });
   }
 }

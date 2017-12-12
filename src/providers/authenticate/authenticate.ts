@@ -23,12 +23,11 @@ export class AuthenticateProvider {
     return this.http.post(this.apiUrl+'service/smsverify', {'phoneNumber': smsnumber, 'code':digitcode});
   }
 
-  public sendtoken(type, token){
-    return this.http.post(this.apiUrl+'service/pushtoken', {type: type, token: token});
+  public sendtoken(uid, token,type ){
+    return this.http.post(this.apiUrl+'user/device', {fireId: uid, deviceToken: token,deviceType: type} );
   }
 
   public signup(Usersignup){
-    console.log("signup page");
     console.log(Usersignup );
     return this.http.post(this.apiUrl+'user/signup', {
       email: Usersignup.email ,
@@ -44,4 +43,6 @@ export class AuthenticateProvider {
   public phoneverify(phonenumber){
     return this.http.post(this.apiUrl+'user/hasphone', {'phoneNumber': phonenumber});
   }
+
+
 }
