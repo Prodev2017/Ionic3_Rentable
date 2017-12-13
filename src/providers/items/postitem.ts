@@ -31,7 +31,7 @@ export class Postitemprovider {
           price: dailyprice,
           category: categoryid,
           imgUrl:imagurl,
-          conditionmark: conditionmark,
+          condition: conditionmark,
           favority:0,
           owner: ownerid,
           distance:distance,

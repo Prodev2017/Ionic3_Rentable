@@ -59,7 +59,8 @@ export class PostcostPage {
   }
 
   Postitem(){
-    console.log('category',this.itempost.category);
+    console.log('category-----',this.itempost.conditionmark);
+
     this.postitemprovider.Itemsave
     (
       this.dailyprice,
