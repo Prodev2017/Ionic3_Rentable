@@ -45,11 +45,34 @@ var ChatPage = /** @class */ (function () {
         }, function (err) {
             console.log();
         });
+        this.itemdelete = false;
     }
     ChatPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad ChatPagePage');
     };
     ChatPage.prototype.delete = function () {
+        this.itemdelete = !this.itemdelete;
+    };
+    ChatPage.prototype.deleteown = function (n) {
+        console.log('n ++', n);
+        for (var i = 0; i < this.onelist.length; i++) {
+            if (this.onelist[i] == n) {
+                this.onelist.splice(i, 1);
+            }
+        }
+    };
+    ChatPage.prototype.deleterent = function (n) {
+        console.log('n ++', n);
+        for (var i = 0; i < this.rentlist.length; i++) {
+            if (this.rentlist[i] == n) {
+                this.rentlist.splice(i, 1);
+            }
+        }
+    };
+    ChatPage.prototype.chatdetail = function () {
+        if (this.itemdelete == false) {
+            this.navCtrl.push(ChatdetailPage);
+        }
     };
     ChatPage = __decorate([
         Component({

@@ -30,7 +30,7 @@ export class ProfileProvider {
 
   public Getprofile(uid){
     console.log("uid  ",   uid );
-    return this.http.post(this.apiUrl+'user/single',{uid:uid});
+    return this.http.post(this.apiUrl+'user/single',{uid:"vB7xnImTasPbShScqNEbwFG8NT22"});
   }
 
   public Appfeedback(rate, leavemessage){

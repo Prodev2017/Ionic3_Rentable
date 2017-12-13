@@ -23,13 +23,11 @@
     </ion-col>
     <ion-col col-6 style="padding-top: 10px;">
       <p class="cover_name">
-        {{itemowner.firstName}}
+        {{fullname}}
       </p>
-      <div *ngFor="let i=goodcondition;">
-        <img class="returnstarsize" src="assets/icon/star-red.png">
-      </div>
-       <div *ngFor="let j=badcondition">
-        <img class="returnstarsize" src="assets/icon/star.png">
+      <div >
+        <img *ngFor="let item of itemgoodcondition" class="returnstarsize" src="assets/icon/star-red.png">
+        <img *ngFor="let item of itembadcondition" class="returnstarsize" src="assets/icon/star.png">
       </div>
     </ion-col>
     <ion-col col-3 class="wardrobe">
@@ -47,12 +45,9 @@
       {{Product.title}}
     </h4>
     <div style="opacity: 0.7;" >
-      <img class="returnstarsize" src="assets/icon/star-red.png">
-      <img class="returnstarsize" src="assets/icon/star-red.png">
-      <img class="returnstarsize" src="assets/icon/star-red.png">
-      <img class="returnstarsize" src="assets/icon/star.png">
-      <img class="returnstarsize" src="assets/icon/star.png">
-      <span style="margin-left:15px;">Item Condition = </span>{{itemcondition}}
+      <img *ngFor="let item of itemgoodcondition" class="returnstarsize" src="assets/icon/star-red.png">
+      <img *ngFor="let item of itembadcondition" class="returnstarsize" src="assets/icon/star.png">
+      <span style="margin-left:15px;">Item Condition = </span>{{itemconditiontext}}
     </div>
     <ion-row class="border" >
       <ion-col class="graycolor" col-6>

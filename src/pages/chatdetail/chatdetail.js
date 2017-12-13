@@ -22,7 +22,6 @@ import { ChatPage } from '../chat/chat';
 */
 var ChatdetailPage = /** @class */ (function () {
     function ChatdetailPage(navCtrl, navParams, af, chatprovider) {
-        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.af = af;
@@ -34,10 +33,10 @@ var ChatdetailPage = /** @class */ (function () {
             img: 'assets/img/11.png', ownerimage: 'assets/img/profile-img.png', item_title: 'house', price: '25'
         };
         var uid = this.navParams.get('uid');
-        chatprovider.getChatRef(this.uid, this.interlocutor)
-            .then(function (chatRef) {
-            _this.chats = _this.af.list(chatRef);
-        });
+        // chatprovider.getChatRef(this.uid, this.interlocutor)
+        // .then((chatRef:any)=>{
+        //   this.chats = this.af.list(chatRef);
+        // });
     }
     ChatdetailPage.prototype.ionViewDidLoad = function () {
         var _this = this;

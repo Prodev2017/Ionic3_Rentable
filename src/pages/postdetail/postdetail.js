@@ -63,7 +63,8 @@ var PostdetailPage = /** @class */ (function () {
         var count = children.length;
         for (var i = 0; i < count; ++i) {
             if (preparent == children[i]) {
-                this.category = this.categorylist[i].value;
+                this.category = this.categorylist[i].title;
+                console.log(this.category);
                 var image = this.categorylist[i].active_img;
                 console.log(children[i].getElementsByTagName('label')[0].getElementsByTagName('img')[0] + "children[i]");
                 children[i].getElementsByTagName('label')[0].getElementsByTagName('img')[0].setAttribute("src", image);
@@ -102,6 +103,7 @@ var PostdetailPage = /** @class */ (function () {
     PostdetailPage.prototype.gopostcost = function () {
         this.Postitem.itemtitle = this.itemtitle;
         this.Postitem.category = this.category;
+        console.log(this.Postitem.category);
         this.Postitem.conditionmark = this.conditionmark;
         this.Postitem.conditiontitle = this.conditiontitle;
         this.navCtrl.push(PostcostPage, {

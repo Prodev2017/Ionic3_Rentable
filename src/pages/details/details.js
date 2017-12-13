@@ -22,6 +22,7 @@ import { OtherprofilePage } from '../otherprofile/otherprofile';
 import { ChatdetailPage } from '../chatdetail/chatdetail';
 var Details = /** @class */ (function () {
     function Details(navCtrl, navParams, myElement, modalCtrl, zone, viewCtrl, itemprovider) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.myElement = myElement;
@@ -40,21 +41,46 @@ var Details = /** @class */ (function () {
         this.locationstatus = false;
         this.rent = RentPage;
         this.retrun = AcceptPage; //return process
-        this.goodcondition = [1, 2, 3];
-        this.badcondition = [1, 2];
-        this.Product = {
-            img: 'assets/img/11.png', ownerimage: 'assets/img/profile-img.png', ownername: 'John', item_title: 'house', price: '25', description: 'this is good rentalable book please use this Thanks', selectdate: '', total_cost: '100'
-        };
+        // this.Product ={
+        //   img: 'assets/img/11.png', ownerimage:'assets/img/profile-img.png', ownername: 'John', item_title:'house', price:'25', description:'this is good rentalable book please use this Thanks', selectdate:'', total_cost:'100'}
         this.detailitem = navParams.get("itemid");
         this.uid = localStorage.getItem('uid');
+        this.Product = [];
         this.ionViewLoaded();
         this.messagetext = "";
         this.messagenumber = 350;
-        this.itemprovider.Getitemdetail(this.uid, this.detailitem).subscribe(function (data) {
-            console.log(data);
+        this.itemprovider.Getitemdetail(this.detailitem).subscribe(function (data) {
+            _this.Product = data.json().result.item;
+            _this.itemowner = data.json().result.user;
+            //this.fullname = data.json().result.user.firstName + " " + data.json().result.user.lastName;
+            _this.fullname = "john bell";
+            console.log(_this.Product);
         }, function (err) {
             console.log(err);
         });
+        for (var i = data.json().result.item.condition; i >= 0; i--) {
+            this.goodcondition[i] = 1;
+        }
+        console.log('array', this.goodcondition);
+        for (i = (5 - this.Product.condition); i >= 0; i--) {
+            this.badcondition[i] = 1;
+        }
+        console.log('condition--------', this.Product.condition);
+        if (this.Product.condition == 1) {
+            this.itemcondition = "poor";
+        }
+        if (this.Product.condition == 2) {
+            this.itemcondition = "fair";
+        }
+        if (this.Product.condition == 3) {
+            this.itemcondition = "good";
+        }
+        if (this.Product.condition == 4) {
+            this.itemcondition = "very good";
+        }
+        if (this.Product.condition == 5) {
+            this.itemcondition = "excellent";
+        }
     }
     Details.prototype.ionViewLoaded = function () {
         this.loadMap();

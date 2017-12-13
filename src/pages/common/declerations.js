@@ -44,6 +44,7 @@ import { ClaimrenterPage } from '../claimrenter/claimrenter';
 import { ClaimownerPage } from '../claimowner/claimowner';
 import { PickupPage } from '../pickup/pickup';
 import { OpportunityPage } from '../opportunity/opportunity';
+import { PayPage } from '../stripe/pay/pay';
 export var allPages = {
     Login: Login,
     Register: Register,
@@ -90,6 +91,7 @@ export var allPages = {
     ClaimownerPage: ClaimownerPage,
     ClaimrenterPage: ClaimrenterPage,
     PickupPage: PickupPage,
-    OpportunityPage: OpportunityPage
+    OpportunityPage: OpportunityPage,
+    PayPage: PayPage
 };
 //# sourceMappingURL=declerations.js.map

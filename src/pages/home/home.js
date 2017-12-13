@@ -7,8 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ModalController, Content } from 'ionic-angular';
 import { MapModal } from '../modal-page/modal-page';
 import { ItemsProvider } from '../../providers/items/items';
 import { Profile } from '../profile/profile';
@@ -26,17 +26,22 @@ var Home = /** @class */ (function () {
         this.details = Details;
         console.log("it is constructor");
         this.expanded = true;
+        this.itemlist = [];
         this.like = [];
         for (var i = 0; i < 12; ++i) {
             this.like[i] = false;
         }
         this.favouritlist = [];
-        this.itemprovider.Getfullitems(localStorage.getItem('uid')).subscribe(function (data) {
-            console.log(data);
+        this.itemprovider.Getitems().subscribe(function (data) {
+            for (var j = 0; j < data.json().result.length; j++) {
+                _this.itemlist[j] = data.json().result[j];
+                console.log(_this.itemlist[j]);
+            }
             _this.itemlist = data.json().result;
         }, function (err) {
             console.log(err);
         });
+        this.searchcategory = this.itemlist;
         this.categorylist = [
             { active_img: 'assets/icon/cat-nearyou.png', title: 'Nearby', inactive_img: 'assets/icon/cat-nearyou-grey.png', value: 'nearby' },
             { active_img: 'assets/icon/cat-electronics.png', title: 'Electronics', inactive_img: 'assets/icon/cat-electronics-grey.png', value: 'electronics' },
@@ -71,7 +76,8 @@ var Home = /** @class */ (function () {
     Home.prototype.ionViewCanLeave = function () {
         console.log("it is finish");
     };
-    Home.prototype.godetails = function () {
+    Home.prototype.godetails = function (n) {
+        this.itemid = this.searchcategory[n]._id;
         this.navCtrl.push(Details, {
             itemid: this.itemid
         });
@@ -99,11 +105,12 @@ var Home = /** @class */ (function () {
         var preparent = parent.parentElement;
         var children = preparent.children;
         var count = children.length;
+        var categoryid;
         for (var i = 0; i < count; ++i) {
             if (parent == children[i]) {
                 var image = this.categorylist[i].active_img;
-                console.log(i);
-                console.log(children[i].getElementsByTagName('img')[0].getAttribute("data-inactive"));
+                categoryid = this.categorylist[i].title;
+                console.log("categoryid", categoryid);
                 children[i].getElementsByTagName('img')[0].setAttribute("src", image);
             }
             else {
@@ -111,7 +118,22 @@ var Home = /** @class */ (function () {
                 children[i].getElementsByTagName('img')[0].setAttribute("src", inactiveimage);
             }
         }
+        var n = 0;
+        this.searchcategory = [];
+        for (var i = 0; i < this.itemlist.length; i++) {
+            if (this.itemlist[i].category == categoryid) {
+                this.searchcategory[n] = this.itemlist[i];
+                console.log("success select id");
+                n++;
+            }
+        }
+        console.log('n', n);
+        this.content.resize();
     };
+    __decorate([
+        ViewChild(Content),
+        __metadata("design:type", Content)
+    ], Home.prototype, "content", void 0);
     Home = __decorate([
         Component({
             selector: 'page-home',

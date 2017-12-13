@@ -10,20 +10,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Device } from '@ionic-native/device';
+import { AuthenticateProvider } from '../../providers/authenticate/authenticate';
+import { FCM } from "@ionic-native/fcm";
 import { Register } from '../register/register';
 import { TabPage } from '../tab/tab';
 var Login = /** @class */ (function () {
-    function Login(navCtrl, alertCtrl, navParams, afAuth) {
+    function Login(navCtrl, alertCtrl, navParams, afAuth, device, fcm, authporvider) {
+        var _this = this;
         this.navCtrl = navCtrl;
         this.alertCtrl = alertCtrl;
         this.navParams = navParams;
         this.afAuth = afAuth;
+        this.device = device;
+        this.fcm = fcm;
+        this.authporvider = authporvider;
         this.register = Register;
         this.expanded = true;
         this.name = "Matias";
         this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
         this.email = navParams.get("email");
         console.log(this.email + " email");
+        this.fcm.getToken()
+            .then(function (token) {
+            _this.token = token;
+        })
+            .catch(function (error) {
+            //ocurrió un error al procesar el token
+            console.error(error);
+        });
     }
     Login.prototype.ionViewWillEnter = function () {
         if (this.tabBarElement) {
@@ -37,14 +52,18 @@ var Login = /** @class */ (function () {
     };
     Login.prototype.login = function () {
         this.navCtrl.setRoot(TabPage);
-        // console.log(this.email);
+        this.type = this.device.platform;
+        console.log('device type  ', this.type);
+        console.log(this.email);
         //  this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(data => {
         //    localStorage.clear();
         //    localStorage.setItem('uid', data.uid);
-        //    this.navCtrl.setRoot(TabPage);
-        //  }, err => {
-        //    console.log('login Error =--', err);
-        //  });
+        //    this.authporvider.sendtoken(data.uid, this.token, this.device).then(data =>{
+        //      this.navCtrl.setRoot(TabPage);
+        //   });
+        // }, err => {
+        //   console.log('login Error =--', err);
+        // });
     };
     Login.prototype.forgotPassword = function () {
         var prompt = this.alertCtrl.create({
@@ -78,7 +97,13 @@ var Login = /** @class */ (function () {
             selector: 'page-login',
             templateUrl: 'login.html'
         }),
-        __metadata("design:paramtypes", [NavController, AlertController, NavParams, AngularFireAuth])
+        __metadata("design:paramtypes", [NavController,
+            AlertController,
+            NavParams,
+            AngularFireAuth,
+            Device,
+            FCM,
+            AuthenticateProvider])
     ], Login);
     return Login;
 }());

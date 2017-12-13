@@ -12,75 +12,63 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { PostdetailPage } from '../postdetail/postdetail';
 import { Crop } from '@ionic-native/crop';
+import { Camera } from '@ionic-native/camera';
 import { PhotoLibrary } from '@ionic-native/photo-library';
-/*
-  Generated class for the AddPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 var AddPage = /** @class */ (function () {
-    function AddPage(navCtrl, navParams, imagepicker, cropservice, photolibrary) {
+    function AddPage(navCtrl, navParams, imagepicker, cropservice, photolibrary, camera) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.imagepicker = imagepicker;
         this.cropservice = cropservice;
         this.photolibrary = photolibrary;
+        this.camera = camera;
         this.postdetail = PostdetailPage;
         this.categorygrid = [{ img: 'assets/icon/camera.png', title: 'apartment', icon: 'ios-home-outline', price: '20', favourity: '21' }, { img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie-outline', price: '12', favourity: '11' }, { img: 'assets/img/03.png', title: 'shop', icon: 'ios-shirt-outline', price: '12', favourity: '34' }, { img: 'assets/img/04.png', title: 'rent', icon: 'ios-headset-outline', price: '32', favourity: '21' }, { img: 'assets/img/01.png', title: 'apartment', icon: 'ios-home', price: '31', favourity: '15' }, { img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie', price: '34', favourity: '65' }, { img: 'assets/img/03.png', title: 'shop', icon: 'md-cart', price: '42', favourity: '23' }, { img: 'assets/img/04.png', title: 'rent', icon: 'md-headset', price: '20', favourity: '21' }, { img: 'assets/img/01.png', title: 'apartment', icon: 'ios-home', price: '20', favourity: '21' }, { img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie', price: '20', favourity: '21' }, { img: 'assets/img/03.png', title: 'shop', icon: 'md-cart', price: '20', favourity: '21' }, { img: 'assets/img/04.png', title: 'rent', icon: 'md-headset', price: '20', favourity: '21' }];
         this.options = {
-            maximumImagesCount: 30,
-            width: 800,
-            height: 800,
-            quality: 80
+            quality: 100,
+            destinationType: this.camera.DestinationType.FILE_URI,
+            sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
         };
-        this.imagelist = new Array();
-        // this.imagepicker.getPictures(this.options).then(
-        //   file_uris => {
-        //     this.imagelist=file_uris;
-        //     console.log(this.imagelist);
-        //   },
-        //   err => console.log('uh oh')
-        // );
-        var i = 1;
+        var j = 1;
         var image = [];
-        var photourlname;
-        var thumname;
-        var filename;
-        image[0] = "assets/icon/camera.png";
-        this.photolibrary.requestAuthorization().then(function () {
-            _this.photolibrary.getLibrary().subscribe({
-                next: function (library) {
-                    console.log("start");
-                    library.forEach(function (libraryItem) {
-                        console.log("foreach");
-                        image[i] = libraryItem.fileName;
-                        i++;
-                        photourlname = libraryItem.photoURL;
-                        thumname = libraryItem.thumbnailURL;
-                        filename = "libraryItem.fileName";
-                        console.log(libraryItem.id); // ID of the photo
-                        console.log(libraryItem.photoURL); // Cross-platform access to photo
-                        console.log(libraryItem.thumbnailURL); // Cross-platform access to thumbnail
-                        console.log(libraryItem.fileName);
-                        console.log(libraryItem.width);
-                        console.log(libraryItem.height);
-                        console.log(libraryItem.creationDate);
-                        console.log(libraryItem.latitude);
-                        console.log(libraryItem.longitude);
-                        console.log(libraryItem.albumIds);
-                    });
-                },
-                error: function (err) { console.log('could not get photos'); },
-                complete: function () { console.log('done getting photos'); }
-            });
-        })
-            .catch(function (err) { return console.log('permissions weren\'t granted'); });
-        this.imagelist = image;
-        this.photourlname = photourlname;
-        this.thumname = thumname;
-        this.filename = filename;
+        //this.imagelist[0]="assets/icon/camera.png";
+        this.imagelist = new Array();
+        this.imagepicker.getPictures(this.options).then(function (file_uris) {
+            _this.imagelist = file_uris;
+        }, function (err) { return console.log('uh oh'); });
+        // for (var i = image.length; i > 0; i--) {
+        //   this.imagelist[i]=image[i];
+        // }
+        //this.imagelist=image;
+        // this.photolibrary.requestAuthorization().then(() => {
+        //   this.photolibrary.getLibrary().subscribe({
+        //     next: library => {
+        //       console.log("start");
+        //       library.forEach(function(libraryItem) {
+        //         console.log("foreach");
+        //         image[i]=libraryItem.fileName;
+        //         i++
+        //         photourlname=libraryItem.photoURL;
+        //         thumname=libraryItem.thumbnailURL;
+        //         filename="libraryItem.fileName";
+        //         console.log(libraryItem.id);          // ID of the photo
+        //         console.log(libraryItem.photoURL);    // Cross-platform access to photo
+        //         console.log(libraryItem.thumbnailURL);// Cross-platform access to thumbnail
+        //         console.log(libraryItem.fileName);
+        //         console.log(libraryItem.width);
+        //         console.log(libraryItem.height);
+        //         console.log(libraryItem.creationDate);
+        //         console.log(libraryItem.latitude);
+        //         console.log(libraryItem.longitude);
+        //         console.log(libraryItem.albumIds);
+        //       });
+        //     },
+        //     error: err => { console.log('could not get photos'); },
+        //     complete: () => { console.log('done getting photos'); }
+        //   });
+        // })
+        // .catch(err => console.log('permissions weren\'t granted'));
         // this.imagepicker.getPictures(this.options)
         // .then((results) => {
         //   this.reduceImages(results).then(() => {
@@ -102,6 +90,15 @@ var AddPage = /** @class */ (function () {
     AddPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad');
     };
+    AddPage.prototype.selectimage = function (n) {
+        if (n == 0) {
+            console.log('camera', n);
+        }
+        else {
+            this.filename = this.imagelist[n];
+            console.log('photo', this.filename);
+        }
+    };
     AddPage = __decorate([
         Component({
             selector: 'page-add',
@@ -111,7 +108,8 @@ var AddPage = /** @class */ (function () {
             NavParams,
             ImagePicker,
             Crop,
-            PhotoLibrary])
+            PhotoLibrary,
+            Camera])
     ], AddPage);
     return AddPage;
 }());

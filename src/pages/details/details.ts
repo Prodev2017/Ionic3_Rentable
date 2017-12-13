@@ -44,11 +44,14 @@ export class Details implements OnInit {
   messagenumber:any;
   messagetext:any;
   detailitem:any;
-  itemcondition:any;
-  goodcondition:number[] = [1, 2, 3];
-  badcondition:number[] = [1, 2];
-  uid:any;
+  itemconditiontext:any;
+  itemgoodcondition:any;
+  itembadcondition:any;
+  goodcondition:any;
+  badcondition:any;
   price:any;
+  uid:any;
+  fullname:any;
   date:any;
   itemowner:any;
   @ViewChild('map') mapElement: ElementRef;
@@ -66,39 +69,50 @@ export class Details implements OnInit {
     // this.Product ={
     //   img: 'assets/img/11.png', ownerimage:'assets/img/profile-img.png', ownername: 'John', item_title:'house', price:'25', description:'this is good rentalable book please use this Thanks', selectdate:'', total_cost:'100'}
     this.detailitem=navParams.get("itemid");
-    this.Product=[];
     this.uid=localStorage.getItem('uid');
+    this.Product=[];
     this.ionViewLoaded();
     this.messagetext="";
     this.messagenumber=350;
+    this.itemgoodcondition=[];
+    this.itembadcondition=[];
     this.itemprovider.Getitemdetail(this.detailitem ).subscribe(data=>{
       this.Product=data.json().result.item;
       this.itemowner=data.json().result.user;
-      console.log('heeeeee',this.itemowner);
+      //this.fullname = data.json().result.user.firstName + " " + data.json().result.user.lastName;
+      this.fullname="john bell";
+      console.log(this.Product.condition);
+      for (var i=0; i < this.Product.condition;  i++) {
+        this.itemgoodcondition[i]=i;
+      }
+      for (var j=0; j < 5-this.Product.condition;  j++) {
+        this.itembadcondition[j]=j;
+      }
+      if(this.Product.condition==1)
+      {
+        this.itemconditiontext = "poor";
+      }
+      if(this.Product.condition==2)
+      {
+        this.itemconditiontext = "fair";
+      }
+      if(this.Product.condition==3)
+      {
+        this.itemconditiontext = "good";
+      }
+      if(this.Product.condition==4)
+      {
+        this.itemconditiontext = "very good";
+      }
+      if(this.Product.condition==5)
+      {
+        this.itemconditiontext = "excellent";
+      }
+
     }, 
     err =>{
       console.log(err);
-    })
-    // if(this.Product.condition==1)
-    // {
-    //   this.itemcondition = "poor";
-    // }
-    // if(this.Product.condition==2)
-    // {
-    //   this.itemcondition = "fair";
-    // }
-    // if(this.Product.condition==3)
-    // {
-    //   this.itemcondition = "good";
-    // }
-    // if(this.Product.condition==4)
-    // {
-    //   this.itemcondition = "very good";
-    // }
-    // if(this.Product.condition==5)
-    // {
-    //   this.itemcondition = "excellent";
-    // }
+    });
 
   }
 

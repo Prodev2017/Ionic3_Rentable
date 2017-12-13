@@ -12,6 +12,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { PaypalPage } from '../paypal/paypal';
 import { CreditPage } from '../credit/credit';
 import { Profile } from '../profile/profile';
+import { PayPage } from '../stripe/pay/pay';
 /*
   Generated class for the AddpaymentPage page.
 
@@ -25,6 +26,7 @@ var AddpaymentPage = /** @class */ (function () {
         this.credit = CreditPage;
         this.paypal = PaypalPage;
         this.profile = Profile;
+        this.stripe = PayPage;
     }
     AddpaymentPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad AddpaymentPagePage');

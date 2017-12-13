@@ -12,12 +12,13 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Keyboard } from 'ionic-native';
+import { FCM } from "@ionic-native/fcm";
 //import { TabsPage } from '../pages/tabs/tabs';
 import { LandingPage } from '../pages/landing/landing';
 var MyApp = /** @class */ (function () {
-    function MyApp(platform, statusBar, splashScreen, afAuth) {
+    function MyApp(platform, statusBar, fcm, splashScreen, afAuth) {
         var _this = this;
+        this.fcm = fcm;
         this.afAuth = afAuth;
         //rootPage:any = TabsPage;
         this.rootPage = LandingPage;
@@ -39,14 +40,32 @@ var MyApp = /** @class */ (function () {
             // Here you can do any higher level native things you might need.
             statusBar.styleDefault();
             splashScreen.hide();
-            Keyboard.hideKeyboardAccessoryBar(false);
+            _this.fcm.getToken()
+                .then(function (token) {
+                console.log("The token to use is: ", token);
+                _this.token = token;
+            })
+                .catch(function (error) {
+                console.error(error);
+            });
+            _this.fcm.onTokenRefresh().subscribe(function (token) { return console.log("Nuevo token", token); }, function (error) { return console.error(error); });
+            _this.fcm.onNotification().subscribe(function (data) {
+                if (data.wasTapped) {
+                    alert(JSON.stringify(data));
+                }
+                else {
+                    alert(JSON.stringify(data));
+                }
+            }, function (error) {
+                console.error("Error in notification", error);
+            });
         });
     }
     MyApp = __decorate([
         Component({
             templateUrl: 'app.html'
         }),
-        __metadata("design:paramtypes", [Platform, StatusBar, SplashScreen, AngularFireAuth])
+        __metadata("design:paramtypes", [Platform, StatusBar, FCM, SplashScreen, AngularFireAuth])
     ], MyApp);
     return MyApp;
 }());

@@ -21,6 +21,7 @@ var PostcostPage = /** @class */ (function () {
         this.addpage = AddPage;
         this.deliver = false;
         this.itempost = navParams.get("itempost");
+        this.uid = localStorage.getItem('uid');
     }
     PostcostPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad PostcostPage');
@@ -44,8 +45,13 @@ var PostcostPage = /** @class */ (function () {
         this.navCtrl.push(PostdetailPage);
     };
     PostcostPage.prototype.Postitem = function () {
-        this.postitemprovider.Itemsave(this.fairprice, this.dailyprice, this.weeklyprice, this.fee, this.distance, this.deliver, this.itempost.itemtitle, this.itempost.category, this.itempost.conditionmark, this.itempost.conditiontitle).subscribe(function (data) {
+        var _this = this;
+        console.log('category-----', this.itempost.conditionmark);
+        this.postitemprovider.Itemsave(this.dailyprice, this.distance, this.deliver, this.itempost.category, this.itempost.itemtitle, this.itempost.conditionmark, this.itempost.conditiontitle, this.imageurl, this.uid).subscribe(function (data) {
+            alert('success posted item');
+            _this.navCtrl.push(AddPage);
         }, function (err) {
+            alert('failed');
         });
     };
     PostcostPage = __decorate([

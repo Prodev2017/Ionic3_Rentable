@@ -28,8 +28,10 @@ var AuthenticateProvider = /** @class */ (function () {
     AuthenticateProvider.prototype.smsverify = function (smsnumber, digitcode) {
         return this.http.post(this.apiUrl + 'service/smsverify', { 'phoneNumber': smsnumber, 'code': digitcode });
     };
+    AuthenticateProvider.prototype.sendtoken = function (uid, token, type) {
+        return this.http.post(this.apiUrl + 'user/device', { fireId: uid, deviceToken: token, deviceType: type });
+    };
     AuthenticateProvider.prototype.signup = function (Usersignup) {
-        console.log("signup page");
         console.log(Usersignup);
         return this.http.post(this.apiUrl + 'user/signup', {
             email: Usersignup.email,

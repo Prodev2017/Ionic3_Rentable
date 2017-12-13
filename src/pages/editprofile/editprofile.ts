@@ -62,12 +62,13 @@ export class EditprofilePage {
     console.log('ionViewDidLoad EditprofilePagePage');
     this.uuid=localStorage.getItem('uid');
     this.Profiledata=this.profileprovider.Getprofile(this.uuid).subscribe(data =>{
-      this.firstname=data.json().result.firstName;
-      this.lastname=data.json().result.lastName;
-      this.email=data.json().result.email;
-      this.phonenumber=data.json().result.phoneNumber;
-      this.postalcode=data.json().result.phoneNubmer;
-      this.password=data.json().result.fireId;
+      console.log(data.json().result);
+      // this.firstname=data.json().result.firstName;
+      // this.lastname=data.json().result.lastName;
+      // this.email=data.json().result.email;
+      // this.phonenumber=data.json().result.phoneNumber;
+      // this.postalcode=data.json().result.phoneNubmer;
+      // this.password=data.json().result.fireId;
     },
     err =>{
       console.log(err);

@@ -19,17 +19,18 @@ var Postitemprovider = /** @class */ (function () {
         this.http = http;
         console.log('Hello PaymentProvider Provider');
     }
-    Postitemprovider.prototype.Itemsave = function (fairprice, dailyprice, weeklyprice, fee, distance, deliver, itemtitle, category, conditionmark, itemdetails) {
-        return this.http.post(this.apiUrl + 'item/saveitem', {
-            fairprice: fairprice,
-            dailyprice: dailyprice,
-            weeklyprice: weeklyprice,
-            fee: fee,
+    Postitemprovider.prototype.Itemsave = function (dailyprice, distance, deliver, categoryid, itemtitle, conditionmark, itemdetails, imagurl, ownerid) {
+        console.log(categoryid + " categoryid");
+        return this.http.post(this.apiUrl + 'item/create', {
+            title: itemtitle,
+            price: dailyprice,
+            category: categoryid,
+            imgUrl: imagurl,
+            condition: conditionmark,
+            favority: 0,
+            owner: ownerid,
             distance: distance,
-            itemtitle: itemtitle,
-            category: category,
-            conditionmark: conditionmark,
-            itemdetails: itemdetails
+            description: itemdetails
         });
     };
     Postitemprovider.prototype.rejectitem = function (rejectcondition, isremove) {

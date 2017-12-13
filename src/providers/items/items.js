@@ -26,7 +26,7 @@ var ItemsProvider = /** @class */ (function () {
         console.log('Hello ItemsProvider Provider');
     }
     ItemsProvider.prototype.Getitems = function () {
-        return this.http.get(this.apiUrl + 'item/getitem');
+        return this.http.get(this.apiUrl + 'item/index');
     };
     ItemsProvider.prototype.addfavourity = function (itemnumber) {
         return this.http.post(this.apiUrl + 'item/addfavourity', { item: itemnumber });
@@ -55,9 +55,6 @@ var ItemsProvider = /** @class */ (function () {
     ItemsProvider.prototype.Getrentcurrent = function (uuid) {
         return this.http.post(this.apiUrl + 'item/rentcurrent', { uid: uuid });
     };
-    ItemsProvider.prototype.Getfullitems = function (uuid) {
-        return this.http.post(this.apiUrl + 'item/fullitem', { uid: uuid });
-    };
     ItemsProvider.prototype.Getchatitems = function (uuid) {
         return this.http.post(this.apiUrl + 'item/chatitem', { uid: uuid });
     };
@@ -70,8 +67,8 @@ var ItemsProvider = /** @class */ (function () {
     ItemsProvider.prototype.Getcurrentopputunity = function (uuid) {
         return this.http.post(this.apiUrl + 'item/currenopptunity', { uid: uuid });
     };
-    ItemsProvider.prototype.Getitemdetail = function (uuid, itemuid) {
-        return this.http.post(this.apiUrl + 'item/itemdetail', { uid: uuid, itemnumber: itemuid });
+    ItemsProvider.prototype.Getitemdetail = function (itemuid) {
+        return this.http.post(this.apiUrl + 'item/read', { itemId: itemuid });
     };
     ItemsProvider.prototype.SendRental = function (uuid, date, price, itemuid) {
         return this.http.post(this.apiUrl + 'item/sendrental', { uid: uuid, itemnumber: itemuid, date: date, price: price });

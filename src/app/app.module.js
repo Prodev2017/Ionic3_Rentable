@@ -19,6 +19,7 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
 import { PhotoLibrary } from '@ionic-native/photo-library';
 import { IonicStorageModule } from '@ionic/storage';
+import { FCM } from "@ionic-native/fcm";
 import { allPages } from '../pages/common/declerations';
 import { DirectivesModule } from '../directives/directives.module';
 import { ValidatorsModule } from '../validators/validators.module';
@@ -33,6 +34,7 @@ import { Postitemprovider } from '../providers/items/postitem';
 import { ItemsProvider } from '../providers/items/items';
 import { ChatProvider } from '../providers/chat/chat';
 import { ImageuploadProvider } from '../providers/imageupload/imageupload';
+import { NoodlioPay } from '../pages/stripe/pay/noodliopay';
 var firebaseConfig = {
     apiKey: "AIzaSyDfySkoXoUcI9Ed39TNJwXnntSg8nKyt10",
     authDomain: "rental-335fb.firebaseapp.com",
@@ -90,7 +92,9 @@ var AppModule = /** @class */ (function () {
                 ItemsProvider,
                 ImagePicker,
                 Crop,
+                FCM,
                 PhotoLibrary,
+                NoodlioPay,
                 ChatProvider,
                 ImageuploadProvider
             ]
