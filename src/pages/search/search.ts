@@ -101,6 +101,23 @@ export class SearchPage {
   }
 
   searchsave(){
-    this.itemprovider.Searchsave(this.category, this.location, this.date, this.fromprice, this.toprice, this.distance, this.within, this.langs);
+    this.navCtrl.push(SearchresultPage,{
+      category: this.category,
+      location: this.location,
+      date: this.date,
+      fromprice: this.fromprice,
+      toprice: this.toprice,
+      distance: this.distance,
+      lang: this.langs,
+      within: this.within
+    })
+    // this.itemprovider.Searchsave(this.category, this.location, this.date, this.fromprice, this.toprice, this.distance, this.within, this.langs)
+    // .subscribe(
+    //   data=>{
+    //     console.log('success search');
+    //     this.navCtrl.push(SearchresultPage);
+    // }, err =>{
+    //   console.log(err);
+    // });
   }
 }

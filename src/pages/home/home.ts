@@ -87,8 +87,8 @@ export class Home {
 
   }
 
-  godetails(){
-    
+  godetails(n){
+    this.itemid=this.searchcategory[n]._id;
     this.navCtrl.push(Details, {
       itemid: this.itemid
     });

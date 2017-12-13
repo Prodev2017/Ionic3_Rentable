@@ -76,8 +76,8 @@ export class ItemsProvider {
     return this.http.post(this.apiUrl + 'item/currenopptunity', {uid: uuid});
   }
 
-  public Getitemdetail(uuid, itemuid){
-    return this.http.post(this.apiUrl + 'item/itemdetail', {uid: uuid, itemnumber: itemuid});
+  public Getitemdetail(itemuid){
+    return this.http.post(this.apiUrl + 'item/read', {itemId: itemuid});
   }
 
   public SendRental(uuid, date, price, itemuid){

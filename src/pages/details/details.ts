@@ -35,7 +35,7 @@ export class Details implements OnInit {
   private contentBox;
   private tabBarHeight;
   like: any;
-  Product: any;
+  Product:any;
   descriptionstatus: boolean = true;
   rentalstatus: boolean = false;
   locationstatus: boolean = false;
@@ -44,12 +44,13 @@ export class Details implements OnInit {
   messagenumber:any;
   messagetext:any;
   detailitem:any;
+  itemcondition:any;
   goodcondition:number[] = [1, 2, 3];
   badcondition:number[] = [1, 2];
   uid:any;
   price:any;
   date:any;
-
+  itemowner:any;
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
@@ -62,19 +63,43 @@ export class Details implements OnInit {
     public viewCtrl: ViewController,
     public itemprovider: ItemsProvider
     )  {
-    this.Product ={
-      img: 'assets/img/11.png', ownerimage:'assets/img/profile-img.png', ownername: 'John', item_title:'house', price:'25', description:'this is good rentalable book please use this Thanks', selectdate:'', total_cost:'100'}
+    // this.Product ={
+    //   img: 'assets/img/11.png', ownerimage:'assets/img/profile-img.png', ownername: 'John', item_title:'house', price:'25', description:'this is good rentalable book please use this Thanks', selectdate:'', total_cost:'100'}
     this.detailitem=navParams.get("itemid");
+    this.Product=[];
     this.uid=localStorage.getItem('uid');
     this.ionViewLoaded();
     this.messagetext="";
     this.messagenumber=350;
-    this.itemprovider.Getitemdetail(this.uid, this.detailitem ).subscribe(data=>{
-      console.log(data);
+    this.itemprovider.Getitemdetail(this.detailitem ).subscribe(data=>{
+      this.Product=data.json().result.item;
+      this.itemowner=data.json().result.user;
+      console.log('heeeeee',this.itemowner);
     }, 
     err =>{
       console.log(err);
     })
+    // if(this.Product.condition==1)
+    // {
+    //   this.itemcondition = "poor";
+    // }
+    // if(this.Product.condition==2)
+    // {
+    //   this.itemcondition = "fair";
+    // }
+    // if(this.Product.condition==3)
+    // {
+    //   this.itemcondition = "good";
+    // }
+    // if(this.Product.condition==4)
+    // {
+    //   this.itemcondition = "very good";
+    // }
+    // if(this.Product.condition==5)
+    // {
+    //   this.itemcondition = "excellent";
+    // }
+
   }
 
   ionViewLoaded(){

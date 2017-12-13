@@ -26,9 +26,9 @@
       </ion-segment-button>
     </ion-segment>
   </ion-scroll>
-  <ion-card  class="grid-list backcolor" *ngFor="let item of searchcategory">
+  <ion-card  class="grid-list backcolor" *ngFor="let item of searchcategory; let i=index; ">
     <div class="image-item" no-lines>
-      <img (click)="godetails()" class="wardrobe" src="assets/img/01.png" />
+      <img (click)="godetails(i)" class="wardrobe" src="assets/img/01.png" />
       <ion-label class="cover_1" >
         ${{item.price}}
       </ion-label>

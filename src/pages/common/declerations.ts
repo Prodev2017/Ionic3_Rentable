@@ -45,6 +45,7 @@ import { ClaimrenterPage } from '../claimrenter/claimrenter';
 import { ClaimownerPage } from '../claimowner/claimowner';
 import { PickupPage } from '../pickup/pickup';
 import { OpportunityPage } from '../opportunity/opportunity';
+import { PayPage } from '../stripe/pay/pay';
 
 import { AuthenticateProvider } from '../../providers/authenticate/authenticate';
 
@@ -95,5 +96,6 @@ export const allPages = {
 	ClaimownerPage,
 	ClaimrenterPage,
 	PickupPage,
-	OpportunityPage
+	OpportunityPage,
+	PayPage
 };

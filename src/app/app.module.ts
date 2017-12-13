@@ -30,6 +30,9 @@ import { Postitemprovider } from '../providers/items/postitem';
 import { ItemsProvider } from '../providers/items/items';
 import { ChatProvider } from '../providers/chat/chat';
 import { ImageuploadProvider } from '../providers/imageupload/imageupload';
+import { NoodlioPay } from '../pages/stripe/pay/noodliopay';
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDfySkoXoUcI9Ed39TNJwXnntSg8nKyt10",
@@ -89,6 +92,7 @@ var APP_Pages = [];
     Crop,
     FCM,
     PhotoLibrary,
+    NoodlioPay,
     ChatProvider,
     ImageuploadProvider
   ]
