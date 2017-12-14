@@ -88,25 +88,25 @@ export class Details implements OnInit {
       for (var j=0; j < 5-this.Product.condition;  j++) {
         this.itembadcondition[j]=j;
       }
-      if(this.Product.condition==1)
+      if(this.Product.condition<=1)
       {
-        this.itemconditiontext = "poor";
+        this.itemconditiontext = "POOR";
       }
       if(this.Product.condition==2)
       {
-        this.itemconditiontext = "fair";
+        this.itemconditiontext = "FAIR";
       }
       if(this.Product.condition==3)
       {
-        this.itemconditiontext = "good";
+        this.itemconditiontext = "GOOD";
       }
       if(this.Product.condition==4)
       {
-        this.itemconditiontext = "very good";
+        this.itemconditiontext = "VERY GOOD";
       }
       if(this.Product.condition==5)
       {
-        this.itemconditiontext = "excellent";
+        this.itemconditiontext = "EXCELLENT";
       }
 
     }, 

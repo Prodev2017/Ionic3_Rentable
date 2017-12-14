@@ -59,8 +59,6 @@ export class PostcostPage {
   }
 
   Postitem(){
-    console.log('category-----',this.itempost.conditionmark);
-
     this.postitemprovider.Itemsave
     (
       this.dailyprice,
@@ -71,7 +69,8 @@ export class PostcostPage {
       this.itempost.conditionmark,
       this.itempost.conditiontitle,
       this.imageurl,
-      this.uid
+      this.uid,
+      0
     ).subscribe(data=>{
       alert('success posted item');
       this.navCtrl.push(AddPage);

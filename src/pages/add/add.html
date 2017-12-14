@@ -51,6 +51,16 @@
       </ion-col>
     </ion-row>
   </div>
+  <ion-card class="grid-list backcolor">
+    <div class="image-item" no-lines>
+      <img (click)="takephoto()" class="imageborder" style="background-color: white" src="assets/icon/camera.png" />
+    </div>
+  </ion-card>
+    <ion-card class="grid-list backcolor">
+    <div class="image-item" no-lines>
+      <img (click)="getimage()" class="imageborder" style="background-color: white" src="assets/icon/film.png" />
+    </div>
+  </ion-card>
   <ion-card class="grid-list backcolor" *ngFor="let item of imagelist; let i=index;">
     <div class="image-item" no-lines>
       <img (click)="selectimage(i)" class="imageborder" style="background-color: white" src="{{item}}" />

@@ -22,7 +22,8 @@ export class Postitemprovider {
       conditionmark,
       itemdetails, 
       imagurl,
-      ownerid
+      ownerid,
+      favority
     ){
       console.log(categoryid + " categoryid");
       return this.http.post(this.apiUrl+'item/create', 
@@ -32,7 +33,7 @@ export class Postitemprovider {
           category: categoryid,
           imgUrl:imagurl,
           condition: conditionmark,
-          favority:0,
+          favority:favority,
           owner: ownerid,
           distance:distance,
           description:itemdetails

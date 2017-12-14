@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { PostdetailPage } from '../postdetail/postdetail';
 import { Crop } from '@ionic-native/crop';
-import { Camera } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { PhotoLibrary } from '@ionic-native/photo-library';
 
@@ -20,6 +20,7 @@ export class AddPage {
   photourlname:any;
   thumname:any;
   filename:any;
+  takeimage:any;
 
   constructor(
     public navCtrl: NavController,
@@ -30,22 +31,7 @@ export class AddPage {
     public camera: Camera
   ) {
     this.categorygrid = [{img: 'assets/icon/camera.png', title: 'apartment', icon: 'ios-home-outline', price:'20', favourity:'21'}, {img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie-outline',price:'12', favourity:'11'}, {img: 'assets/img/03.png', title: 'shop', icon: 'ios-shirt-outline',price:'12', favourity:'34'}, {img: 'assets/img/04.png', title: 'rent', icon: 'ios-headset-outline', price:'32', favourity:'21'},{img: 'assets/img/01.png', title: 'apartment', icon: 'ios-home',price:'31', favourity:'15'}, {img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie',price:'34', favourity:'65'}, {img: 'assets/img/03.png', title: 'shop', icon: 'md-cart',price:'42', favourity:'23'}, {img: 'assets/img/04.png', title: 'rent', icon: 'md-headset',price:'20', favourity:'21'},{img: 'assets/img/01.png', title: 'apartment', icon: 'ios-home',price:'20', favourity:'21'}, {img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie',price:'20', favourity:'21'}, {img: 'assets/img/03.png', title: 'shop', icon: 'md-cart',price:'20', favourity:'21'}, {img: 'assets/img/04.png', title: 'rent', icon: 'md-headset',price:'20', favourity:'21'}]
-    this.options = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-    }
-    var j=1;
-    var image=[];
-    //this.imagelist[0]="assets/icon/camera.png";
-    this.imagelist = new Array<string>();
-    this.imagepicker.getPictures(this.options).then(
-      file_uris => {
-        this.imagelist=file_uris;
-      },
-      err => console.log('uh oh')
-    );
-
+    this.imagelist = [];
     // for (var i = image.length; i > 0; i--) {
     //   this.imagelist[i]=image[i];
     // }
@@ -90,6 +76,37 @@ export class AddPage {
     //   });
     // }, (err) => { console.log(err) });
     
+  }
+
+  takephoto(){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: this.camera.PictureSourceType.CAMERA
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.takeimage = imageData;
+    });
+    this.imagelist.concat(this.takeimage);
+  }
+
+  getimage(){
+    this.options = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    }
+    var image=[];
+    this.imagelist = new Array<string>();
+    this.imagepicker.getPictures(this.options).then(
+      file_uris => {
+        image=file_uris;
+      },
+      err => console.log('uh oh')
+    );
+    this.imagelist.concat(image);
+
   }
 
   reduceImages(selected_pictures: any) : any{
