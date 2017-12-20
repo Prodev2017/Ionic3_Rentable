@@ -5,7 +5,6 @@ import { PostdetailPage } from '../postdetail/postdetail';
 import { Crop } from '@ionic-native/crop';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
-import { PhotoLibrary } from '@ionic-native/photo-library';
 
 @Component({
   selector: 'page-add',
@@ -27,11 +26,13 @@ export class AddPage {
     public navParams: NavParams,
     public imagepicker: ImagePicker,
     public cropservice: Crop,
-    public photolibrary: PhotoLibrary,
     public camera: Camera
   ) {
     this.categorygrid = [{img: 'assets/icon/camera.png', title: 'apartment', icon: 'ios-home-outline', price:'20', favourity:'21'}, {img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie-outline',price:'12', favourity:'11'}, {img: 'assets/img/03.png', title: 'shop', icon: 'ios-shirt-outline',price:'12', favourity:'34'}, {img: 'assets/img/04.png', title: 'rent', icon: 'ios-headset-outline', price:'32', favourity:'21'},{img: 'assets/img/01.png', title: 'apartment', icon: 'ios-home',price:'31', favourity:'15'}, {img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie',price:'34', favourity:'65'}, {img: 'assets/img/03.png', title: 'shop', icon: 'md-cart',price:'42', favourity:'23'}, {img: 'assets/img/04.png', title: 'rent', icon: 'md-headset',price:'20', favourity:'21'},{img: 'assets/img/01.png', title: 'apartment', icon: 'ios-home',price:'20', favourity:'21'}, {img: 'assets/img/02.png', title: 'wedding hall', icon: 'ios-bowtie',price:'20', favourity:'21'}, {img: 'assets/img/03.png', title: 'shop', icon: 'md-cart',price:'20', favourity:'21'}, {img: 'assets/img/04.png', title: 'rent', icon: 'md-headset',price:'20', favourity:'21'}]
     this.imagelist = [];
+
+    this.imagelist=JSON.parse(localStorage.getItem('imagelist'));
+    console.log('ionviewconstructuer', this.imagelist);
     // for (var i = image.length; i > 0; i--) {
     //   this.imagelist[i]=image[i];
     // }
@@ -87,8 +88,9 @@ export class AddPage {
 
     this.camera.getPicture(options).then((imageData) => {
       this.takeimage = imageData;
+      this.imagelist.push(imageData);
     });
-    this.imagelist.concat(this.takeimage);
+    
   }
 
   getimage(){
@@ -98,15 +100,18 @@ export class AddPage {
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     }
     var image=[];
-    this.imagelist = new Array<string>();
     this.imagepicker.getPictures(this.options).then(
       file_uris => {
         image=file_uris;
+        if(this.imagelist.length==0){
+          this.imagelist=image;
+        }
+        else{
+          this.imagelist=this.imagelist.concat(image);
+        }     
       },
       err => console.log('uh oh')
     );
-    this.imagelist.concat(image);
-
   }
 
   reduceImages(selected_pictures: any) : any{
@@ -118,21 +123,26 @@ export class AddPage {
   }
 
   gopostdetail(){
+    localStorage.setItem('imagelist',JSON.stringify(this.imagelist));
     this.navCtrl.push(PostdetailPage);
+  }
+
+  ionViewDidEnter(){
+    console.log('ionviewdidenter');
+    localStorage.setItem('imagelist',JSON.stringify(this.imagelist));
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad');
-    
+    //
   }
 
-  selectimage(n){
-    if(n==0){
-      console.log('camera', n);
-    }
-    else {
-      this.filename=this.imagelist[n];
-      console.log('photo',this.filename)
+  deleteimage(n){
+    for (var i = 0; i <this.imagelist.length; i++) {
+      if(i==n){
+        console.log('n ++', n);
+        this.imagelist.splice(i, 1);
+      }
     }
   }
 

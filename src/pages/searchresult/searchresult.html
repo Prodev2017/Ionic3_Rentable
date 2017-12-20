@@ -24,8 +24,8 @@
 <ion-content no-padding class="app-content ">
   <ion-scroll  scrollX="true" class="categorystyle" >
     <ion-segment [(ngModel)]="timeline" style="justify-content: left;">
-      <ion-segment-button *ngFor="let item of categorylist" (click)="myFunction($event)"  value="{{item.value}}" >
-        <img src="{{item.inactive_img}}" class="categoryimg">
+      <ion-segment-button *ngFor="let item of categorylist; let i = index; " (click)="myFunction(i)"  value="{{item.value}}" >
+        <img  src="{{item.inactive_img}}" class="categoryimg">
         <ion-icon name="md-close" class="deleteicon"></ion-icon>
         <p class="categoryfont">{{item.title}}</p>
       </ion-segment-button>

@@ -49,38 +49,38 @@ var Details = /** @class */ (function () {
         this.ionViewLoaded();
         this.messagetext = "";
         this.messagenumber = 350;
+        this.itemgoodcondition = [];
+        this.itembadcondition = [];
         this.itemprovider.Getitemdetail(this.detailitem).subscribe(function (data) {
             _this.Product = data.json().result.item;
             _this.itemowner = data.json().result.user;
             //this.fullname = data.json().result.user.firstName + " " + data.json().result.user.lastName;
             _this.fullname = "john bell";
-            console.log(_this.Product);
+            console.log(_this.Product.condition);
+            for (var i = 0; i < _this.Product.condition; i++) {
+                _this.itemgoodcondition[i] = i;
+            }
+            for (var j = 0; j < 5 - _this.Product.condition; j++) {
+                _this.itembadcondition[j] = j;
+            }
+            if (_this.Product.condition <= 1) {
+                _this.itemconditiontext = "POOR";
+            }
+            if (_this.Product.condition == 2) {
+                _this.itemconditiontext = "FAIR";
+            }
+            if (_this.Product.condition == 3) {
+                _this.itemconditiontext = "GOOD";
+            }
+            if (_this.Product.condition == 4) {
+                _this.itemconditiontext = "VERY GOOD";
+            }
+            if (_this.Product.condition == 5) {
+                _this.itemconditiontext = "EXCELLENT";
+            }
         }, function (err) {
             console.log(err);
         });
-        for (var i = data.json().result.item.condition; i >= 0; i--) {
-            this.goodcondition[i] = 1;
-        }
-        console.log('array', this.goodcondition);
-        for (i = (5 - this.Product.condition); i >= 0; i--) {
-            this.badcondition[i] = 1;
-        }
-        console.log('condition--------', this.Product.condition);
-        if (this.Product.condition == 1) {
-            this.itemcondition = "poor";
-        }
-        if (this.Product.condition == 2) {
-            this.itemcondition = "fair";
-        }
-        if (this.Product.condition == 3) {
-            this.itemcondition = "good";
-        }
-        if (this.Product.condition == 4) {
-            this.itemcondition = "very good";
-        }
-        if (this.Product.condition == 5) {
-            this.itemcondition = "excellent";
-        }
     }
     Details.prototype.ionViewLoaded = function () {
         this.loadMap();

@@ -46,8 +46,7 @@ var PostcostPage = /** @class */ (function () {
     };
     PostcostPage.prototype.Postitem = function () {
         var _this = this;
-        console.log('category-----', this.itempost.conditionmark);
-        this.postitemprovider.Itemsave(this.dailyprice, this.distance, this.deliver, this.itempost.category, this.itempost.itemtitle, this.itempost.conditionmark, this.itempost.conditiontitle, this.imageurl, this.uid).subscribe(function (data) {
+        this.postitemprovider.Itemsave(this.dailyprice, this.distance, this.deliver, this.itempost.category, this.itempost.itemtitle, this.itempost.conditionmark, this.itempost.conditiontitle, this.imageurl, this.uid, 0).subscribe(function (data) {
             alert('success posted item');
             _this.navCtrl.push(AddPage);
         }, function (err) {

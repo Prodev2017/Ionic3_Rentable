@@ -37,16 +37,16 @@ var EditprofilePage = /** @class */ (function () {
         this.imageURI = "assets/img/profile-img.png";
     }
     EditprofilePage.prototype.ionViewDidLoad = function () {
-        var _this = this;
         console.log('ionViewDidLoad EditprofilePagePage');
         this.uuid = localStorage.getItem('uid');
         this.Profiledata = this.profileprovider.Getprofile(this.uuid).subscribe(function (data) {
-            _this.firstname = data.json().result.firstName;
-            _this.lastname = data.json().result.lastName;
-            _this.email = data.json().result.email;
-            _this.phonenumber = data.json().result.phoneNumber;
-            _this.postalcode = data.json().result.phoneNubmer;
-            _this.password = data.json().result.fireId;
+            console.log(data.json().result);
+            // this.firstname=data.json().result.firstName;
+            // this.lastname=data.json().result.lastName;
+            // this.email=data.json().result.email;
+            // this.phonenumber=data.json().result.phoneNumber;
+            // this.postalcode=data.json().result.phoneNubmer;
+            // this.password=data.json().result.fireId;
         }, function (err) {
             console.log(err);
         });

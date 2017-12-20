@@ -11,9 +11,10 @@ import { Camera } from '@ionic-native/camera';
 import { Device } from '@ionic-native/device';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
-import { PhotoLibrary } from '@ionic-native/photo-library';
 import { IonicStorageModule } from '@ionic/storage';
-import { FCM } from "@ionic-native/fcm";
+import { Geolocation } from '@ionic-native/geolocation';
+
+//import { FCM } from "@ionic-native/fcm";
 
 import { allPages } from '../pages/common/declerations';
 import { DirectivesModule } from '../directives/directives.module';
@@ -90,8 +91,8 @@ var APP_Pages = [];
     ItemsProvider,
     ImagePicker,
     Crop,
-    FCM,
-    PhotoLibrary,
+    Geolocation,
+ //   FCM,
     NoodlioPay,
     ChatProvider,
     ImageuploadProvider

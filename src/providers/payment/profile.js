@@ -34,7 +34,7 @@ var ProfileProvider = /** @class */ (function () {
     };
     ProfileProvider.prototype.Getprofile = function (uid) {
         console.log("uid  ", uid);
-        return this.http.post(this.apiUrl + 'user/single', { uid: uid });
+        return this.http.post(this.apiUrl + 'user/single', { uid: "vB7xnImTasPbShScqNEbwFG8NT22" });
     };
     ProfileProvider.prototype.Appfeedback = function (rate, leavemessage) {
         console.log(" leavt", leavemessage);

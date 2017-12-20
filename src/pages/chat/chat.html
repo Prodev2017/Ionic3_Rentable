@@ -55,7 +55,7 @@
         <p class="itemtext">{{item.history}}</p>
         <ion-icon  class="itemtext"  item-right name="ios-arrow-forward-outline" ></ion-icon>
       </ion-item>
-       <ion-item-options *ngIf="itemdelete" side="right" class="optionbutton">
+      <ion-item-options *ngIf="itemdelete" side="right" class="optionbutton">
         <button (click)="deleterent(item)"><ion-icon trash></ion-icon>Delete</button>
       </ion-item-options>
     </ion-item-sliding>

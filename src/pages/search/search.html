@@ -30,10 +30,8 @@
     <ion-col col-1 class="locationicon">
       <img  src="assets/icon/location-place.png">
     </ion-col>
-    <ion-col col-6 class="middletext">
-      Change Location
-    </ion-col>
-    <ion-col col-4>
+    <ion-col col-10 class="middletext">
+      <!-- <input id="pac-input" class="controls" type="text" [(ngModel)]="location" placeholder="Search Box"> -->
     </ion-col>
     <ion-col col-1 class="rightposition middletext">
       <ion-icon name="ios-arrow-forward-outline"></ion-icon>
@@ -59,6 +57,7 @@
   <ion-row class="locationstyle">
     <ion-col col-1 class="locationicon">
       <img  src="assets/icon/calendar_red.png">
+      <ion-datetime style="margin-left: 10000px" displayFormat="MM/DD/YYYY" [(ngModel)]="date"></ion-datetime>
     </ion-col>
     <ion-col col-6 class="middletext">
       Select Dates
@@ -93,14 +92,14 @@
   <ion-row class="pricerange">
     <ion-col col-6 >
       <ion-item class="inputborder">
-        <ion-input style="padding:0 0 0 8px;" type="text" placeholder="From" [(ngModel)]="fromprice"></ion-input>
+        <ion-input style="padding:0 0 0 8px;" type="tel" placeholder="From" [(ngModel)]="fromprice"></ion-input>
         <ion-icon item-right class="graytext" name="arrow-forward"></ion-icon>
       </ion-item>
     </ion-col>
 
      <ion-col col-6 >
       <ion-item class="inputborder">
-        <ion-input  style="padding:0 0 0 8px;" type="text" placeholder="To" [(ngModel)]="toprice"></ion-input>
+        <ion-input  style="padding:0 0 0 8px;" type="tel" placeholder="To" [(ngModel)]="toprice"></ion-input>
         <ion-icon item-right class="graytext" name="arrow-forward"></ion-icon>
       </ion-item>
     </ion-col>

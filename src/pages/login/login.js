@@ -12,18 +12,18 @@ import { NavController, AlertController, NavParams } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Device } from '@ionic-native/device';
 import { AuthenticateProvider } from '../../providers/authenticate/authenticate';
-import { FCM } from "@ionic-native/fcm";
+//import {FCM, NotificationData} from "@ionic-native/fcm";
 import { Register } from '../register/register';
 import { TabPage } from '../tab/tab';
 var Login = /** @class */ (function () {
-    function Login(navCtrl, alertCtrl, navParams, afAuth, device, fcm, authporvider) {
-        var _this = this;
+    function Login(navCtrl, alertCtrl, navParams, afAuth, device, 
+        //    private fcm:FCM,
+        authporvider) {
         this.navCtrl = navCtrl;
         this.alertCtrl = alertCtrl;
         this.navParams = navParams;
         this.afAuth = afAuth;
         this.device = device;
-        this.fcm = fcm;
         this.authporvider = authporvider;
         this.register = Register;
         this.expanded = true;
@@ -31,14 +31,14 @@ var Login = /** @class */ (function () {
         this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
         this.email = navParams.get("email");
         console.log(this.email + " email");
-        this.fcm.getToken()
-            .then(function (token) {
-            _this.token = token;
-        })
-            .catch(function (error) {
-            //ocurrió un error al procesar el token
-            console.error(error);
-        });
+        // this.fcm.getToken()
+        //   .then((token:string)=>{
+        //     this.token=token;
+        //   })
+        //   .catch(error=>{
+        //     //ocurrió un error al procesar el token
+        //     console.error(error);
+        //   });
     }
     Login.prototype.ionViewWillEnter = function () {
         if (this.tabBarElement) {
@@ -102,7 +102,6 @@ var Login = /** @class */ (function () {
             NavParams,
             AngularFireAuth,
             Device,
-            FCM,
             AuthenticateProvider])
     ], Login);
     return Login;

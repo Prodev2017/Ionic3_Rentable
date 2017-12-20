@@ -19,6 +19,12 @@ page-postcost {
     }
   }
 
+  .text-input-ios {
+    width: calc(100% - 8px);
+    margin: 3px 8px 11px 0px;
+    padding: 0px;
+  }
+
   .labelhelp{
     color:gray;
     margin-top: 25px;

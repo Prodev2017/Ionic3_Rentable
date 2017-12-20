@@ -56,7 +56,6 @@ export class ChatPage {
 
   delete(){
     this.itemdelete=!this.itemdelete;
-    
   }
 
   deleteown(n){

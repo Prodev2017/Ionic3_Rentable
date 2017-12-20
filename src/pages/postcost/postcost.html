@@ -61,8 +61,11 @@
       DAILY RENTAL PRICE
     </ion-label>
     <ion-row class="borderbottom">
-      <ion-col col-11>
-        $<ion-input type="text" [(ngModel)]="dailyprice" value="20"></ion-input>
+      <ion-col col-1>
+        $
+      </ion-col>
+      <ion-col col-10>
+        <ion-input type="tel" [(ngModel)]="dailyprice" placeholder="20"></ion-input>
       </ion-col>
       <ion-col col-1 class="removeicon">
         <ion-icon name="close" (click)="removedailyprice()"></ion-icon>
@@ -72,8 +75,11 @@
       WEEKLY VALUE PRICE
     </ion-label>
     <ion-row class="borderbottom">
-      <ion-col col-11>
-        $<ion-input type="text" [(ngModel)]="weeklyprice" value="140"></ion-input>
+      <ion-col col-1>
+        $
+      </ion-col>
+      <ion-col col-10>
+        <ion-input type="tel" [(ngModel)]="weeklyprice" placeholder="140"></ion-input>
       </ion-col>
       <ion-col col-1 class="removeicon">
         <ion-icon name="close" (click)="removeweeklyprice()"></ion-icon>
@@ -83,8 +89,11 @@
       BOND PRICE
     </ion-label>
     <ion-row class="borderbottom">
-      <ion-col col-11>
-        $<ion-input type="text" [(ngModel)]="fairprice" value="25"></ion-input>
+      <ion-col col-1>
+        $
+      </ion-col>
+      <ion-col col-10>
+        <ion-input type="tel" [(ngModel)]="fairprice" placeholder="25"></ion-input>
       </ion-col>
       <ion-col col-1 class="removeicon">
         <ion-icon name="close" (click)="removefairprice()"></ion-icon>
@@ -106,8 +115,8 @@
         ENTER YOUR DELIVERY/PICK UP FEE
       </ion-label>
       <ion-row class="borderbottom">
-        <ion-col col-11>
-          $<ion-input type="text" [(ngModel)]="fee" placeholder="10"></ion-input>
+        <ion-col col-10>
+          <ion-input type="tel" [(ngModel)]="fee" placeholder="10"></ion-input>
         </ion-col>
         <ion-col col-1 class="removeicon">
           <ion-icon name="close" (click)="removefee()"></ion-icon>

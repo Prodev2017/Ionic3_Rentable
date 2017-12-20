@@ -3,7 +3,7 @@ import { NavController, AlertController,NavParams } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Device } from '@ionic-native/device';
 import { AuthenticateProvider } from '../../providers/authenticate/authenticate';
-import {FCM, NotificationData} from "@ionic-native/fcm";
+//import {FCM, NotificationData} from "@ionic-native/fcm";
 
 
 import { Register } from '../register/register';
@@ -33,7 +33,7 @@ export class Login {
     public navParams:NavParams,
     public afAuth: AngularFireAuth,
     private device: Device,
-    private fcm:FCM,
+//    private fcm:FCM,
     public authporvider: AuthenticateProvider
   ) {
     this.expanded = true;
@@ -41,14 +41,14 @@ export class Login {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.email=navParams.get("email");
     console.log(this.email + " email");
-    this.fcm.getToken()
-      .then((token:string)=>{
-        this.token=token;
-      })
-      .catch(error=>{
-        //ocurrió un error al procesar el token
-        console.error(error);
-      });
+    // this.fcm.getToken()
+    //   .then((token:string)=>{
+    //     this.token=token;
+    //   })
+    //   .catch(error=>{
+    //     //ocurrió un error al procesar el token
+    //     console.error(error);
+    //   });
   }
 
 

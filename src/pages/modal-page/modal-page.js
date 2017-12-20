@@ -22,8 +22,72 @@ var MapModal = /** @class */ (function () {
         this.viewCtrl.dismiss();
     };
     MapModal.prototype.ionViewLoaded = function () {
-        this.loadMap();
+        this.initAutocomplete();
     };
+    // initAutocomplete() {
+    //   Geolocation.getCurrentPosition().then((position) => {
+    //     let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    //     let mapOptions = {
+    //       center: latLng,
+    //       zoom: 15,
+    //       mapTypeId: google.maps.MapTypeId.ROADMAP
+    //     }
+    //     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    //   }, (err) => {
+    //     console.log(err);
+    //   });
+    //   // Create the search box and link it to the UI element.
+    //   var input = document.getElementById('pac-input');
+    //   var searchBox = new google.maps.places.SearchBox(input);
+    //   this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    //   // Bias the SearchBox results towards current map's viewport.
+    //   this.map.addListener('bounds_changed', function() {
+    //     searchBox.setBounds(this.map.getBounds());
+    //   });
+    //   var markers = [];
+    //   // Listen for the event fired when the user selects a prediction and retrieve
+    //   // more details for that place.
+    //   searchBox.addListener('places_changed', function() {
+    //     var places = searchBox.getPlaces();
+    //     if (places.length == 0) {
+    //       return;
+    //     }
+    //     // Clear out the old markers.
+    //     markers.forEach(function(marker) {
+    //       marker.setMap(null);
+    //     });
+    //     markers = [];
+    //     // For each place, get the icon, name and location.
+    //     var bounds = new google.maps.LatLngBounds();
+    //     places.forEach(function(place) {
+    //       if (!place.geometry) {
+    //         console.log("Returned place contains no geometry");
+    //         return;
+    //       }
+    //       var icon = {
+    //         url: place.icon,
+    //         size: new google.maps.Size(71, 71),
+    //         origin: new google.maps.Point(0, 0),
+    //         anchor: new google.maps.Point(17, 34),
+    //         scaledSize: new google.maps.Size(25, 25)
+    //       };
+    //       // Create a marker for each place.
+    //       markers.push(new google.maps.Marker({
+    //         map: this.map,
+    //         icon: icon,
+    //         title: place.name,
+    //         position: place.geometry.location
+    //       }));
+    //       if (place.geometry.viewport) {
+    //         // Only geocodes have viewport.
+    //         bounds.union(place.geometry.viewport);
+    //       } else {
+    //         bounds.extend(place.geometry.location);
+    //       }
+    //     });
+    //     this.map.fitBounds(bounds);
+    //   });
+    // }
     MapModal.prototype.loadMap = function () {
         var _this = this;
         Geolocation.getCurrentPosition().then(function (position) {
@@ -42,9 +106,10 @@ var MapModal = /** @class */ (function () {
         var marker = new google.maps.Marker({
             map: this.map,
             animation: google.maps.Animation.DROP,
-            position: this.map.getCenter()
+            position: this.map.getCenter(),
+            draggable: true
         });
-        var content = "<h4>Information!</h4>";
+        var content = "";
         this.addInfoWindow(marker, content);
     };
     MapModal.prototype.addInfoWindow = function (marker, content) {
@@ -52,6 +117,7 @@ var MapModal = /** @class */ (function () {
         var infoWindow = new google.maps.InfoWindow({
             content: content
         });
+        console.log('content', content);
         google.maps.event.addListener(marker, 'click', function () {
             infoWindow.open(_this.map, marker);
         });

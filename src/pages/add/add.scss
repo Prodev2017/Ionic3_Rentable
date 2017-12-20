@@ -44,29 +44,53 @@ page-add {
     margin-bottom: -5px;
     margin-left: 0px;
     margin-right: 0px;
-    img{
-        object-fit: cover;
-        -o-object-fit: cover;
-        opacity: .7;
-    }
-    .item-md{
-        .item-inner{
-            padding-right: 0;
-        }
-    }
-    .label-md{
-        text-transform: capitalize;
-        font-weight: 500;
-        padding:0px !important;
-        margin:0px !important;
-    }
   }
 
+  .grid-list-image{
+    width: 50%;
+    float: left;
+    padding-bottom: 0;
+    padding:0px !important;
+    height: 47vw;
+    margin-top: 0px;
+    margin-bottom: -5px;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+
   .imageborder{
-    width: 50vw;
+    width: auto;
+    background-color: transparent;
     height: 50vw;
-    border: 0 1px 1px 0;
-    border-color: white;
+
+  }
+
+  .imagephoto{
+    width: auto;
+    background-color: transparent !important;
+    height: 20vw;
+    margin-top: 7vw;
+    margin-right: 10vw;
+    margin-left: 11vw;
+    margin-bottom: 5vw;
+  }
+
+  .imagecamera{
+    width: auto;
+    background-color: transparent;
+    height: 20vw;
+    margin-right: 8vw;
+    margin-top: 7vw;
+    margin-left: 9vw;
+    margin-bottom: 5vw;
+  }
+
+  .imagetext{
+    color: red;
+    text-align: center;
+    margin-bottom: 5rem;
+    font-size: 1.8rem;
   }
 
 

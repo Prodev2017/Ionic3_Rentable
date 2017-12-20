@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild, ElementRef } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 /*import { NgCalendarModule  } from 'ionic2-calendar';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { Calendar } from '@ionic-native/calendar';*/
 import { FormGroup, FormControl } from '@angular/forms';
 import { ItemsProvider } from '../../providers/items/items';
+import { Geolocation} from 'ionic-native';
 
 import { MapPage } from '../map/map';
 import { Home } from '../home/home';
 import { MapModal } from '../modal-page/modal-page';
 import { SearchresultPage } from '../searchresult/searchresult';
 
+declare var google;  
 
 /*
   Generated class for the SearchPage page.
@@ -23,6 +25,10 @@ import { SearchresultPage } from '../searchresult/searchresult';
   templateUrl: 'search.html'
 })
 export class SearchPage {
+
+  
+  @ViewChild('map') mapElement: ElementRef;
+  //map:any;
 
   categorylist:Array<any>;
 	map=MapModal;
@@ -51,12 +57,81 @@ export class SearchPage {
       {active_img: 'assets/icon/cat-tools-red.png', title: 'Tools and machines', inactive_img: 'assets/icon/cat-tools-grey.png', value:'tools',radionumber:'radio9'},
       {active_img: 'assets/icon/cat-party-red.png', title: 'Party and Events', inactive_img: 'assets/icon/cat-party-grey.png', value:'party',radionumber:'radio10'}
     ]
-
+    this.category=[];
+   
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPagePage');
+    //this.initAutocomplete();
   }
+
+  // initAutocomplete() {
+  //   var map = new google.maps.Map(document.getElementById('map'), {
+  //     center: {lat: -33.8688, lng: 151.2195},
+  //     zoom: 13,
+  //     mapTypeId: 'roadmap'
+  //   });
+
+  //   // Create the search box and link it to the UI element.
+  //   var input = document.getElementById('pac-input');
+  //   var searchBox = new google.maps.places.SearchBox(input);
+  //   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  //   // Bias the SearchBox results towards current map's viewport.
+  //   map.addListener('bounds_changed', function() {
+  //     searchBox.setBounds(map.getBounds());
+  //   });
+
+  //   var markers = [];
+  //   // Listen for the event fired when the user selects a prediction and retrieve
+  //   // more details for that place.
+  //   searchBox.addListener('places_changed', function() {
+  //     var places = searchBox.getPlaces();
+
+  //     if (places.length == 0) {
+  //       return;
+  //     }
+
+  //     // Clear out the old markers.
+  //     markers.forEach(function(marker) {
+  //       marker.setMap(null);
+  //     });
+  //     markers = [];
+
+  //     // For each place, get the icon, name and location.
+  //     var bounds = new google.maps.LatLngBounds();
+  //     places.forEach(function(place) {
+  //       if (!place.geometry) {
+  //         console.log("Returned place contains no geometry");
+  //         return;
+  //       }
+  //       var icon = {
+  //         url: place.icon,
+  //         size: new google.maps.Size(71, 71),
+  //         origin: new google.maps.Point(0, 0),
+  //         anchor: new google.maps.Point(17, 34),
+  //         scaledSize: new google.maps.Size(25, 25)
+  //       };
+
+  //       // Create a marker for each place.
+  //       markers.push(new google.maps.Marker({
+  //         map: map,
+  //         icon: icon,
+  //         title: place.name,
+  //         position: place.geometry.location
+  //       }));
+
+  //       if (place.geometry.viewport) {
+  //         // Only geocodes have viewport.
+  //         bounds.union(place.geometry.viewport);
+  //       } else {
+  //         bounds.extend(place.geometry.location);
+  //       }
+  //     });
+  //     map.fitBounds(bounds);
+  //   });
+  // }
 
   presentModal() {
     let modal = this.modalCtrl.create(MapModal);
@@ -64,7 +139,7 @@ export class SearchPage {
   }
 
   reset(){
-    this.category="";
+    this.category=[];
     this.distance=0;
     this.fromprice=0;
     this.toprice=0;
@@ -89,7 +164,7 @@ export class SearchPage {
     for (var i = 0; i < count; ++i) {
       if(preparent==children[i]){
         var image=this.categorylist[i].active_img;
-        this.category=this.categorylist[i].value;
+        this.category=this.categorylist[i];
         console.log(children[i].getElementsByTagName('label')[0].getElementsByTagName('img')[0] + "children[i]");
         children[i].getElementsByTagName('label')[0].getElementsByTagName('img')[0].setAttribute("src", image);
       }
@@ -98,6 +173,23 @@ export class SearchPage {
         children[i].getElementsByTagName('label')[0].getElementsByTagName('img')[0].setAttribute("src", inactiveimage);
       }
     }
+  }
+
+  
+
+
+  changlocation(){
+    // var searchBox = new google.maps.places.SearchBox(this.location);
+    // this.map.addListener('bounds_changed', function() {
+    //       searchBox.setBounds(this.map.getBounds());
+    //     });
+    // console.log(this.location);
+    // searchBox.addListener('places_changed', function() {
+    //   var places = searchBox.getPlaces();
+    //     if (places.length == 0) {
+    //       return;
+    //     }
+    // });
   }
 
   searchsave(){

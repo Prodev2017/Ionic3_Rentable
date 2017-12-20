@@ -19,7 +19,7 @@ var Postitemprovider = /** @class */ (function () {
         this.http = http;
         console.log('Hello PaymentProvider Provider');
     }
-    Postitemprovider.prototype.Itemsave = function (dailyprice, distance, deliver, categoryid, itemtitle, conditionmark, itemdetails, imagurl, ownerid) {
+    Postitemprovider.prototype.Itemsave = function (dailyprice, distance, deliver, categoryid, itemtitle, conditionmark, itemdetails, imagurl, ownerid, favority) {
         console.log(categoryid + " categoryid");
         return this.http.post(this.apiUrl + 'item/create', {
             title: itemtitle,
@@ -27,7 +27,7 @@ var Postitemprovider = /** @class */ (function () {
             category: categoryid,
             imgUrl: imagurl,
             condition: conditionmark,
-            favority: 0,
+            favority: favority,
             owner: ownerid,
             distance: distance,
             description: itemdetails
