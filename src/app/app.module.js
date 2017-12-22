@@ -18,6 +18,7 @@ import { Device } from '@ionic-native/device';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Crop } from '@ionic-native/crop';
 import { IonicStorageModule } from '@ionic/storage';
+import { Geolocation } from '@ionic-native/geolocation';
 //import { FCM } from "@ionic-native/fcm";
 import { allPages } from '../pages/common/declerations';
 import { DirectivesModule } from '../directives/directives.module';
@@ -91,6 +92,7 @@ var AppModule = /** @class */ (function () {
                 ItemsProvider,
                 ImagePicker,
                 Crop,
+                Geolocation,
                 //   FCM,
                 NoodlioPay,
                 ChatProvider,

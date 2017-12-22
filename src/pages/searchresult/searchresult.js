@@ -68,8 +68,9 @@ var SearchresultPage = /** @class */ (function () {
     SearchresultPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad SearchresultPagePage');
     };
-    SearchresultPage.prototype.myFunction = function (event) {
-        console.log('index', event);
+    SearchresultPage.prototype.myFunction = function (i) {
+        console.log('index', i);
+        this.categorylist.splice(i, 1);
         // var target = event.target || event.srcElement || event.currentTarget;
         // var idAttr = target.attributes.id;
         // var parent = event.srcElement.parentElement;

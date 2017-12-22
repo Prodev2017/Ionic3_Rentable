@@ -40,6 +40,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      Keyboard.hideKeyboardAccessoryBar(false);
       // this.fcm.getToken()
       // .then((token:string)=>{
       //  console.log("The token to use is: ",token);

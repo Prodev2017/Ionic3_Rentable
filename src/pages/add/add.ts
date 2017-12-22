@@ -4,7 +4,8 @@ import { ImagePicker } from '@ionic-native/image-picker';
 import { PostdetailPage } from '../postdetail/postdetail';
 import { Crop } from '@ionic-native/crop';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
+import { storage } from 'firebase';
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-add',

@@ -92,14 +92,14 @@
   <ion-row class="pricerange">
     <ion-col col-6 >
       <ion-item class="inputborder">
-        <ion-input style="padding:0 0 0 8px;" type="tel" placeholder="From" [(ngModel)]="fromprice"></ion-input>
+        <ion-input style="padding:0 0 0 8px;" type="tel" (ionChange)="frompricechange()" placeholder="From" [(ngModel)]="fromprice"></ion-input>
         <ion-icon item-right class="graytext" name="arrow-forward"></ion-icon>
       </ion-item>
     </ion-col>
 
      <ion-col col-6 >
       <ion-item class="inputborder">
-        <ion-input  style="padding:0 0 0 8px;" type="tel" placeholder="To" [(ngModel)]="toprice"></ion-input>
+        <ion-input  style="padding:0 0 0 8px;" type="tel" (ionChange)="topricechange()" placeholder="To" [(ngModel)]="toprice"></ion-input>
         <ion-icon item-right class="graytext" name="arrow-forward"></ion-icon>
       </ion-item>
     </ion-col>

@@ -9,7 +9,8 @@
    
   <div #map id="map" data-tap-disabled="true">
   </div>
-  <ion-icon md="md-close" text-center  class="close-icon" (click)="dismiss()" large></ion-icon>
+  <button><ion-icon md="md-close" text-center  class="close-icon" (click)="dismiss()" large></ion-icon></button>
+  
   
  <!--  <ion-fab left bottom>
     <button ion-fab mini color="secondary"  (click)="addMarker()"><ion-icon name="md-add"></ion-icon></button>
@@ -17,7 +18,3 @@
   <ion-searchbar #searchbar placeholder="Select Location" ></ion-searchbar>
   {{searchresult}}
 </ion-content>
-<ion-footer class="map-footer" color="primary">
-    
-
-</ion-footer>
