@@ -9,7 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { File } from '@ionic-native/file';
@@ -64,6 +64,7 @@ var AppModule = /** @class */ (function () {
                 AngularFireModule.initializeApp(firebaseConfig),
                 AngularFireAuthModule,
                 AngularFireDatabaseModule,
+                AngularFireDatabase,
                 IonicStorageModule.forRoot(),
                 IonicModule.forRoot(MyApp, {
                     backButtonText: '',
@@ -86,6 +87,7 @@ var AppModule = /** @class */ (function () {
                 PaymentProvider,
                 ProfileProvider,
                 Postitemprovider,
+                AngularFireDatabase,
                 File,
                 Camera,
                 Device,

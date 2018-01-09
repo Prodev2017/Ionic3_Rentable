@@ -29,40 +29,6 @@ var AddPage = /** @class */ (function () {
         //   this.imagelist[i]=image[i];
         // }
         //this.imagelist=image;
-        // this.photolibrary.requestAuthorization().then(() => {
-        //   this.photolibrary.getLibrary().subscribe({
-        //     next: library => {
-        //       console.log("start");
-        //       library.forEach(function(libraryItem) {
-        //         console.log("foreach");
-        //         image[i]=libraryItem.fileName;
-        //         i++
-        //         photourlname=libraryItem.photoURL;
-        //         thumname=libraryItem.thumbnailURL;
-        //         filename="libraryItem.fileName";
-        //         console.log(libraryItem.id);          // ID of the photo
-        //         console.log(libraryItem.photoURL);    // Cross-platform access to photo
-        //         console.log(libraryItem.thumbnailURL);// Cross-platform access to thumbnail
-        //         console.log(libraryItem.fileName);
-        //         console.log(libraryItem.width);
-        //         console.log(libraryItem.height);
-        //         console.log(libraryItem.creationDate);
-        //         console.log(libraryItem.latitude);
-        //         console.log(libraryItem.longitude);
-        //         console.log(libraryItem.albumIds);
-        //       });
-        //     },
-        //     error: err => { console.log('could not get photos'); },
-        //     complete: () => { console.log('done getting photos'); }
-        //   });
-        // })
-        // .catch(err => console.log('permissions weren\'t granted'));
-        // this.imagepicker.getPictures(this.options)
-        // .then((results) => {
-        //   this.reduceImages(results).then(() => {
-        //     console.log('all images cropped!!');
-        //   });
-        // }, (err) => { console.log(err) });
     }
     AddPage.prototype.takephoto = function () {
         var _this = this;
@@ -88,9 +54,11 @@ var AddPage = /** @class */ (function () {
             image = file_uris;
             if (_this.imagelist.length == 0) {
                 _this.imagelist = image;
+                localStorage.setItem('imagelist', JSON.stringify(_this.imagelist));
             }
             else {
                 _this.imagelist = _this.imagelist.concat(image);
+                localStorage.setItem('imagelist', JSON.stringify(_this.imagelist));
             }
         }, function (err) { return console.log('uh oh'); });
     };
@@ -119,6 +87,7 @@ var AddPage = /** @class */ (function () {
             if (i == n) {
                 console.log('n ++', n);
                 this.imagelist.splice(i, 1);
+                localStorage.setItem('imagelist', JSON.stringify(this.imagelist));
             }
         }
     };

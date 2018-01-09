@@ -5,8 +5,9 @@ import { MapModal } from '../modal-page/modal-page';
 import { ShareModal } from '../share-modal/share-modal';
 import { Home } from '../home/home';
 import { ItemsProvider } from '../../providers/items/items';
-
 import { Geolocation} from 'ionic-native';
+import { ChatProvider } from '../../providers/chat/chat';
+
 import { AcceptPage } from '../accept/accept';
 import { PickupPage } from '../pickup/pickup';
 import { ClaimrenterPage } from '../claimrenter/claimrenter';
@@ -64,12 +65,15 @@ export class Details implements OnInit {
     public modalCtrl: ModalController,
     public zone:NgZone,
     public viewCtrl: ViewController,
-    public itemprovider: ItemsProvider
+    public itemprovider: ItemsProvider,
+    public chatprovider: ChatProvider
     )  {
     // this.Product ={
     //   img: 'assets/img/11.png', ownerimage:'assets/img/profile-img.png', ownername: 'John', item_title:'house', price:'25', description:'this is good rentalable book please use this Thanks', selectdate:'', total_cost:'100'}
     this.detailitem=navParams.get("itemid");
     this.uid=localStorage.getItem('uid');
+    console.log(this.uid);
+
     this.Product=[];
     this.ionViewLoaded();
     this.messagetext="";
@@ -79,9 +83,10 @@ export class Details implements OnInit {
     this.itemprovider.Getitemdetail(this.detailitem ).subscribe(data=>{
       this.Product=data.json().result.item;
       this.itemowner=data.json().result.user;
+      this.uid = this.itemowner._id;
       //this.fullname = data.json().result.user.firstName + " " + data.json().result.user.lastName;
       this.fullname="john bell";
-      console.log(this.Product.condition);
+      console.log('owner',this.itemowner);
       for (var i=0; i < this.Product.condition;  i++) {
         this.itemgoodcondition[i]=i;
       }
@@ -142,9 +147,10 @@ export class Details implements OnInit {
   }
 
   sendmessage(){
-    this.navCtrl.push(ChatdetailPage,{
-      message:this.messagetext
-    });
+    this.chatprovider.addChats(this.uid, this.itemowner._id);
+    console.log('id-----',this.itemowner._id);
+    let param = {uid: this.uid, interlocutor: this.itemowner._id, message: this.messagetext};
+    this.navCtrl.push(ChatdetailPage,param);
   }
 
   addMarker(){

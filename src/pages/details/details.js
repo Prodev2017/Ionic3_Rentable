@@ -15,13 +15,14 @@ import { ShareModal } from '../share-modal/share-modal';
 import { Home } from '../home/home';
 import { ItemsProvider } from '../../providers/items/items';
 import { Geolocation } from 'ionic-native';
+import { ChatProvider } from '../../providers/chat/chat';
 import { AcceptPage } from '../accept/accept';
 import { PickupPage } from '../pickup/pickup';
 import { ClaimownerPage } from '../claimowner/claimowner';
 import { OtherprofilePage } from '../otherprofile/otherprofile';
 import { ChatdetailPage } from '../chatdetail/chatdetail';
 var Details = /** @class */ (function () {
-    function Details(navCtrl, navParams, myElement, modalCtrl, zone, viewCtrl, itemprovider) {
+    function Details(navCtrl, navParams, myElement, modalCtrl, zone, viewCtrl, itemprovider, chatprovider) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -30,6 +31,7 @@ var Details = /** @class */ (function () {
         this.zone = zone;
         this.viewCtrl = viewCtrl;
         this.itemprovider = itemprovider;
+        this.chatprovider = chatprovider;
         this.showFooter = false;
         this.rentPage = RentPage;
         this.home = Home;
@@ -56,7 +58,7 @@ var Details = /** @class */ (function () {
             _this.itemowner = data.json().result.user;
             //this.fullname = data.json().result.user.firstName + " " + data.json().result.user.lastName;
             _this.fullname = "john bell";
-            console.log(_this.Product.condition);
+            console.log('owner', _this.itemowner);
             for (var i = 0; i < _this.Product.condition; i++) {
                 _this.itemgoodcondition[i] = i;
             }
@@ -102,6 +104,7 @@ var Details = /** @class */ (function () {
         });
     };
     Details.prototype.sendmessage = function () {
+        this.chatprovider.addChats(this.uid, this.itemowner.user._id);
         this.navCtrl.push(ChatdetailPage, {
             message: this.messagetext
         });
@@ -240,7 +243,8 @@ var Details = /** @class */ (function () {
             ModalController,
             NgZone,
             ViewController,
-            ItemsProvider])
+            ItemsProvider,
+            ChatProvider])
     ], Details);
     return Details;
 }());

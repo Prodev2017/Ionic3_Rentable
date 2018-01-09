@@ -76,6 +76,8 @@ export class Home {
       {img: 'assets/img/03.png', price:'52',id:'10'},
       {img: 'assets/img/04.png', price:'212',id:'11'}
     ]
+    var imagelist=[];
+    localStorage.setItem('imagelist',JSON.stringify(imagelist));
   }
 
   ionViewDidLoad(){
@@ -128,7 +130,6 @@ export class Home {
       if(parent==children[i]){
         var image=this.categorylist[i].active_img;
         categoryid = this.categorylist[i].title;
-        console.log("categoryid", categoryid);
         children[i].getElementsByTagName('img')[0].setAttribute("src", image);
       }
       else{
@@ -141,11 +142,9 @@ export class Home {
     for (var i = 0; i<this.itemlist.length; i++) {
       if (this.itemlist[i].category==categoryid) {
         this.searchcategory[n]=this.itemlist[i];
-        console.log("success select id");
         n++;
       }
     }
-    console.log('n', n);
     this.content.resize();
   }
 

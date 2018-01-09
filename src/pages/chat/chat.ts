@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ItemsProvider } from '../../providers/items/items';
-
+import { Observable } from 'rxjs/Observable';
 import { ChatdetailPage } from '../chatdetail/chatdetail';
+import { AuthenticateProvider } from '../../providers/authenticate/authenticate';
+import { ChatProvider } from '../../providers/chat/chat';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 /*
   Generated class for the ChatPage page.
@@ -21,8 +24,15 @@ export class ChatPage {
 	chatdetails=ChatdetailPage;
   own_rent:string="own";
   itemdelete:any;
+  chatlist:Array<any>;
+  uid:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public itemprovider: ItemsProvider) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public itemprovider: ItemsProvider,
+              public authprovider: AuthenticateProvider,
+              public chatprovider: ChatProvider,
+              public af:AngularFireDatabase) {
   	this.onelist =
   	[
   		{img: 'assets/img/11.png', title: 'John', item_title:'house', history:'2 days ago'},
@@ -31,6 +41,19 @@ export class ChatPage {
   	 	{img: 'assets/img/11.png', title: 'Josh', item_title:'pear', history:'5 days ago'},
   	 	{img: 'assets/img/11.png', title: 'Joseph', item_title:'TV', history:'9 days ago'}
   	]
+
+    this.chatlist=[];
+    this.uid=localStorage.getItem('uid');
+    this.chatprovider.getChats()
+    .subscribe(chats => {
+      this.chatlist = chats.map(users => {
+        return users.map(user => {
+          user.info = this.af.object(`/users/${user.$key}`);
+          console.log(" user infor ",user );
+          return user;
+        });
+      });
+    });
 
     this.rentlist =
     [
@@ -76,9 +99,10 @@ export class ChatPage {
     }
   }
 
-  chatdetail(){
+  chatdetail(key){
+    let param = {uid: this.uid, interlocutor: key}; 
     if (this.itemdelete==false) {
-      this.navCtrl.push(ChatdetailPage);
+      this.navCtrl.push(ChatdetailPage, param);
     }
   }
 

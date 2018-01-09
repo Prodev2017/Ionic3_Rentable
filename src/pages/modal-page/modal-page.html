@@ -8,6 +8,7 @@
 <ion-content class="map-content">
    
   <div #map id="map" data-tap-disabled="true">
+    <ion-searchbar #searchbar placeholder="Select Location" ></ion-searchbar>
   </div>
   <button><ion-icon md="md-close" text-center  class="close-icon" (click)="dismiss()" large></ion-icon></button>
   
@@ -15,6 +16,6 @@
  <!--  <ion-fab left bottom>
     <button ion-fab mini color="secondary"  (click)="addMarker()"><ion-icon name="md-add"></ion-icon></button>
   </ion-fab>    -->
-  <ion-searchbar #searchbar placeholder="Select Location" ></ion-searchbar>
+ 
   {{searchresult}}
 </ion-content>

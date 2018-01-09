@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ItemsProvider } from '../../providers/items/items';
 import { ChatdetailPage } from '../chatdetail/chatdetail';
+import { AuthenticateProvider } from '../../providers/authenticate/authenticate';
 /*
   Generated class for the ChatPage page.
 
@@ -18,10 +19,11 @@ import { ChatdetailPage } from '../chatdetail/chatdetail';
   Ionic pages and navigation.
 */
 var ChatPage = /** @class */ (function () {
-    function ChatPage(navCtrl, navParams, itemprovider) {
+    function ChatPage(navCtrl, navParams, itemprovider, authprovider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.itemprovider = itemprovider;
+        this.authprovider = authprovider;
         this.chatdetails = ChatdetailPage;
         this.own_rent = "own";
         this.onelist =
@@ -32,6 +34,11 @@ var ChatPage = /** @class */ (function () {
                 { img: 'assets/img/11.png', title: 'Josh', item_title: 'pear', history: '5 days ago' },
                 { img: 'assets/img/11.png', title: 'Joseph', item_title: 'TV', history: '9 days ago' }
             ];
+        this.authprovider.getalluser().subscribe(function (data) {
+            console.log('ok');
+        }, function (err) {
+            console.log('error');
+        });
         this.rentlist =
             [
                 { img: 'assets/img/22.png', title: 'John', item_title: 'house', history: '2 days ago' },
@@ -79,7 +86,10 @@ var ChatPage = /** @class */ (function () {
             selector: 'page-chat',
             templateUrl: 'chat.html'
         }),
-        __metadata("design:paramtypes", [NavController, NavParams, ItemsProvider])
+        __metadata("design:paramtypes", [NavController,
+            NavParams,
+            ItemsProvider,
+            AuthenticateProvider])
     ], ChatPage);
     return ChatPage;
 }());

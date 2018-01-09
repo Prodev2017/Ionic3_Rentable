@@ -29,10 +29,10 @@
 
 <ion-content [ngSwitch]="own_rent" class="app-content">
   <ion-list *ngSwitchCase="'own'">
-    <ion-item-sliding (click)="chatdetail()" class="like-list bottomborder" *ngFor="let item of onelist" no-margin >
-      <ion-item no-lines paddings>
+    <ion-item-sliding  class="like-list bottomborder" *ngFor="let item of chatlist" no-margin >
+      <ion-item (click)="chatdetail(item)" no-lines paddings>
         <ion-thumbnail  item-left>
-          <img class="itemimage" src="{{item.img}}" />
+          <img class="itemimage" src="assets/img/11.png" />
         </ion-thumbnail>
         <h2 style="color: black;" class="itemtext">{{item.title}}</h2>
         <h2 class="itemtext">{{item.item_title}}</h2>
@@ -45,8 +45,8 @@
     </ion-item-sliding>
   </ion-list>
   <div *ngSwitchCase="'rent'">
-    <ion-item-sliding (click)="chatdetail()" class="like-list bottomborder" *ngFor="let item of rentlist" no-margin >
-      <ion-item no-lines paddings>
+    <ion-item-sliding  class="like-list bottomborder" *ngFor="let item of rentlist" no-margin >
+      <ion-item (click)="chatdetail(item)" no-lines paddings>
         <ion-thumbnail  item-left>
           <img class="itemimage" src="{{item.img}}" />
         </ion-thumbnail>

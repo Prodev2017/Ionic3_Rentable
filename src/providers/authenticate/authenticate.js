@@ -25,6 +25,9 @@ var AuthenticateProvider = /** @class */ (function () {
         console.log(smsnumber);
         return this.http.post(this.apiUrl + 'service/sendsms', { 'phoneNumber': smsnumber });
     };
+    AuthenticateProvider.prototype.getalluser = function () {
+        return this.http.get(this.apiUrl + 'user/all');
+    };
     AuthenticateProvider.prototype.smsverify = function (smsnumber, digitcode) {
         return this.http.post(this.apiUrl + 'service/smsverify', { 'phoneNumber': smsnumber, 'code': digitcode });
     };

@@ -41,6 +41,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
       Keyboard.hideKeyboardAccessoryBar(false);
+      console.log('notification test-----------');
       // this.fcm.getToken()
       // .then((token:string)=>{
       //  console.log("The token to use is: ",token);

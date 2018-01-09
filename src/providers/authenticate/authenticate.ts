@@ -19,6 +19,10 @@ export class AuthenticateProvider {
     return this.http.post(this.apiUrl+'service/sendsms', {'phoneNumber': smsnumber});
   }
 
+  public getalluser() {
+    return this.http.get(this.apiUrl+'user/all');
+  }
+
   public smsverify(smsnumber, digitcode){
     return this.http.post(this.apiUrl+'service/smsverify', {'phoneNumber': smsnumber, 'code':digitcode});
   }

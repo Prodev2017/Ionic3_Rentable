@@ -12,6 +12,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Keyboard } from 'ionic-native';
 //import {FCM, NotificationData} from "@ionic-native/fcm";
 //import { TabsPage } from '../pages/tabs/tabs';
 import { LandingPage } from '../pages/landing/landing';
@@ -39,6 +40,8 @@ var MyApp = /** @class */ (function () {
             // Here you can do any higher level native things you might need.
             statusBar.styleDefault();
             splashScreen.hide();
+            Keyboard.hideKeyboardAccessoryBar(false);
+            console.log('notification test-----------');
             // this.fcm.getToken()
             // .then((token:string)=>{
             //  console.log("The token to use is: ",token);
