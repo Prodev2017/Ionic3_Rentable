@@ -11,7 +11,6 @@ import { Home } from '../home/home';
 import { TabPage } from '../tab/tab';
 
 
-
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
