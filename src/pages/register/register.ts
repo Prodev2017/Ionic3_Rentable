@@ -54,9 +54,6 @@ export class Register {
 
   gosignup(){
     this.Usersignup.phonenumber = this.phonenumber;
-    // this.navCtrl.push(SignupPage,{
-    //       user: this.Usersignup
-    //     });
     this.Authprovider.smsverify(this.phonenumber,this.digitcode.value).subscribe(data => {
       let res = data.json().success;
       console.log('hehe', res);

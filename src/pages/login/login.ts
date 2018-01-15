@@ -33,7 +33,6 @@ export class Login {
     public navParams:NavParams,
     public afAuth: AngularFireAuth,
     private device: Device,
-//    private fcm:FCM,
     public authporvider: AuthenticateProvider
   ) {
     this.expanded = true;
@@ -70,15 +69,15 @@ export class Login {
     this.type = this.device.platform;
     console.log('device type  ',this.type);
     console.log(this.email);
-   //  this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(data => {
-   //    localStorage.clear();
-   //    localStorage.setItem('uid', data.uid);
-   //    this.authporvider.sendtoken(data.uid, this.token, this.device).then(data =>{
-   //      this.navCtrl.setRoot(TabPage);
-   //   });
-   // }, err => {
-   //   console.log('login Error =--', err);
-   // });
+    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(data => {
+      localStorage.clear();
+      localStorage.setItem('uid', data.uid);
+      this.authporvider.sendtoken(data.uid, this.token, this.device).subscribe(data =>{
+        this.navCtrl.setRoot(TabPage);
+      });
+    }, err => {
+      console.log('login Error =--', err);
+    });
 
   }
 

@@ -28,7 +28,7 @@ export class AuthenticateProvider {
   }
 
   public sendtoken(uid, token,type ){
-    return this.http.post(this.apiUrl+'user/device', {fireId: uid, deviceToken: token,deviceType: type} );
+    return this.http.post(this.apiUrl+'user/device', {'fireId': uid, 'deviceToken': token,'deviceType': type} );
   }
 
   public signup(Usersignup){

@@ -62,7 +62,6 @@ export class FinishsignPage {
     this.Usersignup.lastname=this.lastname.value;
     this.Usersignup.postalcode=this.postalcode.value;
     this.authprovier.signup(this.Usersignup).subscribe(data=>{
-      console.log('sign up--success--', data.json().result.uid);
       localStorage.clear();
       localStorage.setItem('uid', data.json().result.uid);
       this.navCtrl.push(TabPage);
